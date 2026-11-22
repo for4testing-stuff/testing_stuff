@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Bourse Daily — Website Design</title>
+<style>
+@page{size:1440px 900px;margin:0}
+:root{--paper:#F2EFE6;--ink:#14181A;--gain:#0F7B4F;--loss:#C8372D;--hi:#F5D547;--mute:#6B6A60;--rule:#14181A;--soft:#E4E0D2}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper)}
+body{font-family:'Inter',sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:1440px;height:900px;position:relative;overflow:hidden;page-break-after:always;background:var(--paper)}
+.page:last-child{page-break-after:auto}
+.grain{position:absolute;inset:0;pointer-events:none;z-index:50;opacity:.5}
+.mono{font-family:'DejaVu Sans Mono','Liberation Mono',monospace;font-variant-numeric:tabular-nums}
+.serif{font-family:'Lora',serif}
+.up{color:var(--gain)}.dn{color:var(--loss)}
+
+/* ticker */
+.ticker{height:34px;background:var(--ink);color:var(--paper);display:flex;align-items:center;gap:0;overflow:hidden;white-space:nowrap;font-size:12px;letter-spacing:.02em}
+.ticker span{padding:0 22px;border-right:1px solid #3a4044;display:inline-flex;gap:9px;align-items:center}
+.ticker b{font-weight:600;letter-spacing:.08em;font-family:'Inter'}
+.ticker .u{color:#5fd29b}.ticker .d{color:#ff8a7e}
+
+/* masthead */
+.mast{padding:0 56px;display:flex;align-items:flex-end;justify-content:space-between;height:92px;border-bottom:1px solid var(--rule);position:relative}
+.mast:after{content:"";position:absolute;left:56px;right:56px;bottom:-5px;border-bottom:1px solid var(--rule)}
+.logo{font-family:'Lora',serif;font-weight:700;font-size:38px;letter-spacing:.04em;line-height:1;padding-bottom:14px}
+.logo i{font-style:normal;color:var(--loss)}
+.nav{display:flex;gap:34px;font-size:14px;font-weight:600;padding-bottom:20px;letter-spacing:.02em}
+.nav a{padding-bottom:4px;border-bottom:3px solid transparent}
+.nav a.on{border-color:var(--hi)}
+.tools{display:flex;gap:14px;align-items:center;padding-bottom:14px}
+.search{width:250px;height:38px;border:1.5px solid var(--ink);background:#fbf9f2;display:flex;align-items:center;padding:0 12px;font-size:13px;color:var(--mute);gap:8px}
+.btn{height:38px;padding:0 20px;display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:13px;border:1.5px solid var(--ink);letter-spacing:.02em}
+.btn.k{background:var(--ink);color:var(--paper);box-shadow:3px 3px 0 var(--hi)}
+.btn.y{background:var(--hi);box-shadow:3px 3px 0 var(--ink)}
+.btn.o{background:transparent}
+.btn.g{background:var(--gain);color:#fff;box-shadow:3px 3px 0 var(--ink)}
+.btn.r{background:var(--loss);color:#fff;box-shadow:3px 3px 0 var(--ink)}
+
+.wrap{padding:0 56px}
+.kick{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--loss)}
+.sec{display:flex;justify-content:space-between;align-items:baseline;border-top:3px double var(--rule);padding-top:8px;margin-bottom:6px}
+.sec h3{font-family:'Lora',serif;font-size:19px;font-weight:700}
+.sec small{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:600}
+table{width:100%;border-collapse:collapse}
+th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:600;text-align:right;padding:6px 0;border-bottom:1px solid var(--ink)}
+th:first-child{text-align:left}
+td{padding:0;border-bottom:1px dotted #9b9886;font-size:13px;text-align:right;height:41px}
+td:first-child{text-align:left}
+td .nm{font-weight:600;font-size:13px;display:block;line-height:1.15}
+td .tk{font-size:10.5px;color:var(--mute);letter-spacing:.06em}
+tr.sel td{background:var(--hi)}
+.foot{position:absolute;left:56px;right:56px;bottom:14px;display:flex;justify-content:space-between;font-size:10.5px;color:var(--mute);letter-spacing:.06em;border-top:1px solid #b8b4a2;padding-top:7px}
+.box{border:1.5px solid var(--ink);background:#fbf9f2;box-shadow:5px 5px 0 var(--ink)}
+.tabs{display:flex;gap:0}
+.tabs span{padding:6px 14px;border:1.5px solid var(--ink);margin-left:-1.5px;font-size:12px;font-weight:600}
+.tabs span.on{background:var(--ink);color:var(--paper)}
+.star{display:inline-block;width:13px;color:#14181A}
+</style></head><body>
+
+<!-- ============ SCREEN 1 ============ -->
+<section class="page" id="p1">
+  <div class="ticker mono" data-ticker></div>
+  <div class="mast">
+    <div class="logo">BOURSE<i>·</i>DAILY</div>
+    <div class="nav"><a class="on">Markets</a><a>Watchlist</a><a>Portfolio</a><a>Learn</a></div>
+    <div class="tools"><div class="search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#14181A" stroke-width="2.4"><circle cx="10" cy="10" r="7"/><path d="M15 15l7 7"/></svg>Search stocks, e.g. MRDN</div><div class="btn k">Sign in</div></div>
+  </div>
+
+  <div class="wrap" style="margin-top:26px;display:grid;grid-template-columns:520px 1fr;gap:48px">
+    <div>
+      <div class="kick">Closing report · Fri 20 Nov 2026</div>
+      <h1 class="serif" style="font-size:50px;line-height:1.04;font-weight:700;margin:12px 0 14px;letter-spacing:-.01em">Markets Close Higher as Banks Lead the Rally</h1>
+      <p style="font-size:15px;line-height:1.55;color:#33383a;max-width:470px">Benchmarks gained for a third session as lenders surged after the midday policy comments, while IT stocks gave back part of this week's gains.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);margin-top:20px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)">
+        <div style="padding:10px 0"><div class="kick" style="color:var(--mute)">Nifty 50</div><div class="mono" style="font-size:19px;font-weight:700;margin-top:3px">24,318.40</div><div class="mono up" style="font-size:12px">▲ 101.85 (0.42%)</div></div>
+        <div style="padding:10px 0 10px 16px;border-left:1px solid #b8b4a2"><div class="kick" style="color:var(--mute)">Sensex</div><div class="mono" style="font-size:19px;font-weight:700;margin-top:3px">80,112.75</div><div class="mono up" style="font-size:12px">▲ 304.10 (0.38%)</div></div>
+        <div style="padding:10px 0 10px 16px;border-left:1px solid #b8b4a2"><div class="kick" style="color:var(--mute)">Bank Nifty</div><div class="mono" style="font-size:19px;font-weight:700;margin-top:3px">52,870.10</div><div class="mono up" style="font-size:12px">▲ 475.60 (0.91%)</div></div>
+      </div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div><span class="serif" style="font-weight:700;font-size:17px">Nifty 50 — intraday</span> <span class="mono" style="font-size:11px;color:var(--mute);margin-left:8px">5-min · 09:15–15:30 IST</span></div>
+        <div class="tabs"><span class="on">1D</span><span>1W</span><span>1M</span><span>1Y</span></div>
+      </div>
+      <div id="c1" style="height:318px;border:1.5px solid var(--ink);background:#fbf9f2"></div>
+    </div>
+  </div>
+
+  <div class="wrap" style="margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px">
+    <div><div class="sec"><h3>Top Gainers</h3><small>NSE · Today</small></div>
+      <table><thead><tr><th>Company</th><th>Price ₹</th><th>Chg %</th><th style="width:84px">Trend</th></tr></thead><tbody id="g1"></tbody></table></div>
+    <div><div class="sec"><h3>Top Losers</h3><small>NSE · Today</small></div>
+      <table><thead><tr><th>Company</th><th>Price ₹</th><th>Chg %</th><th style="width:84px">Trend</th></tr></thead><tbody id="l1"></tbody></table></div>
+    <div><div class="sec"><h3>Most Active</h3><small>By volume</small></div>
+      <table><thead><tr><th>Company</th><th>Price ₹</th><th>Vol (lakh)</th><th style="width:84px">Trend</th></tr></thead><tbody id="a1"></tbody></table></div>
+  </div>
+  <div class="foot"><span>BOURSE·DAILY — Screen 1 · Home “Market Today”</span><span>Sample data and fictional companies, for design purposes only</span></div>
+</section>
+
+<!-- ============ SCREEN 2 ============ -->
+<section class="page" id="p2">
+  <div class="ticker mono" data-ticker></div>
+  <div class="mast">
+    <div class="logo">BOURSE<i>·</i>DAILY</div>
+    <div class="nav"><a class="on">Markets</a><a>Watchlist</a><a>Portfolio</a><a>Learn</a></div>
+    <div class="tools"><div class="search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#14181A" stroke-width="2.4"><circle cx="10" cy="10" r="7"/><path d="M15 15l7 7"/></svg>Search stocks, e.g. MRDN</div><div class="btn k">Sign in</div></div>
+  </div>
+
+  <div class="wrap" style="margin-top:22px">
+    <div style="font-size:11.5px;color:var(--mute);letter-spacing:.06em">Markets &nbsp;/&nbsp; Metals &amp; Mining &nbsp;/&nbsp; <b style="color:var(--ink)">Meridian Steel Ltd</b></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:10px;padding-bottom:16px">
+      <div>
+        <div class="kick">MRDN · NSE · Steel</div>
+        <h1 class="serif" style="font-size:48px;font-weight:700;line-height:1.05;margin-top:6px;letter-spacing:-.01em">Meridian Steel Ltd</h1>
+      </div>
+      <div style="text-align:right">
+        <div class="mono" style="font-size:46px;font-weight:700;letter-spacing:-.02em;line-height:1">₹1,248.60</div>
+        <div class="mono up" style="font-size:15px;margin-top:6px">▲ 22.20 (1.81%) <span style="color:var(--mute)">· Close, 20 Nov</span></div>
+      </div>
+      <div style="display:flex;gap:16px;padding-bottom:4px">
+        <div class="btn y"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.7-5.7 5 1.8 7.4L12 18l-6.6 4 1.8-7.4-5.7-5 7.5-.7z" fill="#14181A"/></svg>Add to Watchlist</div>
+        <div class="btn g">Buy</div><div class="btn o" style="box-shadow:3px 3px 0 var(--ink)">Sell</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="display:grid;grid-template-columns:1fr 340px;gap:40px">
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;border-top:3px double var(--rule);padding-top:10px">
+        <span class="serif" style="font-weight:700;font-size:17px">Price history</span>
+        <div class="tabs"><span>1D</span><span>1W</span><span>1M</span><span class="on">3M</span><span>1Y</span><span>5Y</span></div>
+      </div>
+      <div id="c2" style="height:392px;border:1.5px solid var(--ink);background:#fbf9f2"></div>
+    </div>
+    <div>
+      <div style="border-top:3px double var(--rule);padding-top:10px;margin-bottom:8px"><span class="serif" style="font-weight:700;font-size:17px">Key numbers</span></div>
+      <div class="box" style="padding:6px 18px 16px">
+        <table class="mono" style="font-size:13px">
+          <tr><td style="font-family:Inter;color:var(--mute);height:34px">Open</td><td>1,231.00</td></tr>
+          <tr><td style="font-family:Inter;color:var(--mute);height:34px">Day high</td><td>1,254.30</td></tr>
+          <tr><td style="font-family:Inter;color:var(--mute);height:34px">Day low</td><td>1,226.45</td></tr>
+          <tr><td style="font-family:Inter;color:var(--mute);height:34px">Market cap</td><td>₹ 31,420 Cr</td></tr>
+          <tr><td style="font-family:Inter;color:var(--mute);height:34px">P/E ratio</td><td>14.6</td></tr>
+          <tr><td style="font-family:Inter;color:var(--mute);height:34px;border:0">Volume</td><td style="border:0">18.4 lakh</td></tr>
+        </table>
+        <div style="margin-top:12px;font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)">52-week range</div>
+        <div style="position:relative;height:10px;margin:12px 0 8px;background:var(--soft);border:1.5px solid var(--ink)">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:72%;background:var(--ink)"></div>
+          <div style="position:absolute;left:72%;top:-7px;width:3px;height:22px;background:var(--loss)"></div>
+        </div>
+        <div class="mono" style="display:flex;justify-content:space-between;font-size:12px"><span>₹ 842.10</span><span>₹ 1,402.80</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="margin-top:20px">
+    <div class="sec" style="margin-bottom:10px"><h3>In the news</h3><small>Meridian Steel</small></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px">
+      <div><div class="kick" style="color:var(--mute)">2 hrs ago · Results</div><div class="serif" style="font-weight:700;font-size:16px;line-height:1.3;margin-top:4px">Quarterly profit rises 18% on firmer steel prices</div></div>
+      <div style="border-left:1px solid #b8b4a2;padding-left:40px"><div class="kick" style="color:var(--mute)">Yesterday · Brokerage</div><div class="serif" style="font-weight:700;font-size:16px;line-height:1.3;margin-top:4px">Analysts raise target to ₹1,420, cite order book</div></div>
+      <div style="border-left:1px solid #b8b4a2;padding-left:40px"><div class="kick" style="color:var(--mute)">Mon · Company</div><div class="serif" style="font-weight:700;font-size:16px;line-height:1.3;margin-top:4px">Board approves capacity expansion at Raipur plant</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>BOURSE·DAILY — Screen 2 · Stock detail</span><span>Sample data and fictional companies, for design purposes only</span></div>
+</section>
+
+<!-- ============ SCREEN 3 ============ -->
+<section class="page" id="p3">
+  <div class="ticker mono" data-ticker></div>
+  <div class="mast">
+    <div class="logo">BOURSE<i>·</i>DAILY</div>
+    <div class="nav"><a>Markets</a><a class="on">Watchlist</a><a>Portfolio</a><a>Learn</a></div>
+    <div class="tools"><div class="search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#14181A" stroke-width="2.4"><circle cx="10" cy="10" r="7"/><path d="M15 15l7 7"/></svg>Search stocks, e.g. MRDN</div><div class="btn k">Hi, Aarav</div></div>
+  </div>
+
+  <div class="wrap" style="margin-top:26px;display:grid;grid-template-columns:1fr 470px;gap:52px">
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px">
+        <div><div class="kick">Your list · 8 stocks</div><h1 class="serif" style="font-size:40px;font-weight:700;line-height:1.05;margin-top:6px">My Watchlist</h1></div>
+        <div class="btn y">＋ Add stock</div>
+      </div>
+      <div class="sec" style="margin-bottom:0"><small>Prices as of close, 20 Nov</small><small>Tap ★ to remove</small></div>
+      <table><thead><tr><th style="width:36px"></th><th style="text-align:left">Company</th><th>Price ₹</th><th>Change</th><th>Chg %</th><th style="width:110px">30-day trend</th></tr></thead><tbody id="w3"></tbody></table>
+    </div>
+
+    <div>
+      <div class="sec" style="margin-bottom:12px"><h3 style="font-size:22px">My Portfolio</h3><small>Summary</small></div>
+      <div class="box" style="padding:20px 22px">
+        <div class="kick" style="color:var(--mute)">Total value</div>
+        <div class="mono" style="font-size:40px;font-weight:700;letter-spacing:-.02em;margin-top:4px">₹4,82,300</div>
+        <div class="mono up" style="font-size:14px;margin-top:4px">▲ ₹3,840 (0.80%) today &nbsp;·&nbsp; <span style="color:var(--ink)">Overall</span> ▲ ₹58,120</div>
+        <div style="display:flex;gap:26px;align-items:center;margin-top:20px;border-top:1px dashed #6b6a60;padding-top:18px">
+          <svg id="donut" width="168" height="168" viewBox="0 0 168 168"></svg>
+          <div id="legend" style="flex:1;font-size:13px"></div>
+        </div>
+      </div>
+      <div class="sec" style="margin-top:22px;margin-bottom:0"><h3 style="font-size:17px">Holdings</h3><small>Profit / loss</small></div>
+      <table><thead><tr><th>Stock</th><th>Qty</th><th>Invested ₹</th><th>P&amp;L ₹</th></tr></thead><tbody id="h3"></tbody></table>
+    </div>
+  </div>
+  <div class="foot"><span>BOURSE·DAILY — Screen 3 · Watchlist &amp; Portfolio</span><span>Sample data and fictional companies, for design purposes only</span></div>
+</section>
+
+<script>
+// ---------- helpers ----------
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const fmt=(n,d=2)=>n.toLocaleString('en-IN',{minimumFractionDigits:d,maximumFractionDigits:d});
+function walk(seed,n,drift,vol){const r=rng(seed);let v=0,a=[];for(let i=0;i<n;i++){v+=drift+(r()-.5)*vol;a.push(v)}return a}
+function spark(seed,up,w=80,h=24){
+  const r=rng(seed),n=24;let v=0,a=[];for(let i=0;i<n;i++){v+=(up?0.35:-0.35)+(r()-.5)*1.6;a.push(v)}
+  const mn=Math.min(...a),mx=Math.max(...a),c=up?'#0F7B4F':'#C8372D';
+  const p=a.map((y,i)=>(i*(w-2)/(n-1)+1).toFixed(1)+','+(h-2-(y-mn)/(mx-mn||1)*(h-4)).toFixed(1)).join(' ');
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline points="${p}" fill="none" stroke="${c}" stroke-width="1.7" stroke-linejoin="round"/></svg>`}
+// ---------- ticker ----------
+const tk=[['NIFTY 50','24,318.40','▲0.42%',1],['SENSEX','80,112.75','▲0.38%',1],['BANK NIFTY','52,870.10','▲0.91%',1],['NIFTY IT','37,904.55','▼0.15%',0],['MRDN','1,248.60','▲1.81%',1],['KVPW','412.35','▲3.20%',1],['NRST','286.90','▼2.64%',0],['ATLB','1,102.15','▲0.77%',1],['ZNFN','645.80','▼0.31%',0],['USD/INR','83.42','▼0.04%',0],['GOLD','₹71,880','▲0.22%',1],['CRUDE','$78.35','▼0.48%',0]];
+document.querySelectorAll('[data-ticker]').forEach(t=>{t.innerHTML=tk.map(x=>`<span><b>${x[0]}</b>${x[1]}<em class="${x[3]?'u':'d'}" style="font-style:normal">${x[2]}</em></span>`).join('')});
+// ---------- tables screen 1 ----------
+function rows(id,data,mode){document.getElementById(id).innerHTML=data.map((d,i)=>{
+  const up=d[3]>=0;
+  const c3=mode==='vol'?`<td class="mono">${d[3].toFixed(1)}</td>`:`<td class="mono ${up?'up':'dn'}" style="font-weight:600">${up?'▲':'▼'} ${Math.abs(d[3]).toFixed(2)}</td>`;
+  return `<tr><td><span class="nm">${d[0]}</span><span class="tk mono">${d[1]}</span></td><td class="mono">${fmt(d[2])}</td>${c3}<td style="text-align:right">${spark(d[4]+i,mode==='vol'?d[5]:up)}</td></tr>`}).join('')}
+rows('g1',[['Kaveri Power','KVPW',412.35,3.20,11],['Meridian Steel','MRDN',1248.60,1.81,21],['Lotus Cements','LTCM',903.10,1.64,31],['Himalaya Agro','HMAG',217.45,1.42,41],['Sundial Textiles','SNDL',158.20,1.18,51]]);
+rows('l1',[['Northstar Telecom','NRST',286.90,-2.64,61],['Bluewave Logistics','BLWV',534.75,-1.97,71],['Pinecrest Foods','PNCF',1876.30,-1.55,81],['Saffron Retail','SFRT',342.05,-1.21,91],['Orchid Pharma Labs','ORCH',768.40,-0.94,101]]);
+rows('a1',[['Atlas Bank','ATLB',1102.15,482.6,111,true],['Zenith Finserv','ZNFN',645.80,431.2,121,false],['Crown Auto','CRWN',2214.50,366.9,131,true],['Delta Energy','DLTE',389.65,341.4,141,true],['Kaveri Power','KVPW',412.35,298.8,151,true]],'vol');
+
+// ---------- line chart (screen 1) ----------
+(function(){
+  const el=document.getElementById('c1');const W=el.clientWidth||760,H=318,pl=18,pr=74,pt=22,pb=34;
+  const n=76,r=rng(7);let v=0,a=[];
+  for(let i=0;i<n;i++){let d=(r()-.5)*5.5; if(i<24)d-=.5; if(i>=24&&i<46)d+=.4; if(i==44)d+=22; if(i>46)d+=.55; v+=d;a.push(v)}
+  const base=24216.55,s=(101.85)/(a[n-1]);a=a.map(x=>base+x*s);
+  const mn=24190,mx=24340;
+  const X=i=>pl+i*(W-pl-pr)/(n-1),Y=y=>pt+(1-(y-mn)/(mx-mn))*(H-pt-pb);
+  let g='';
+  for(let y=24200;y<=24340;y+=35){g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(y)}" y2="${Y(y)}" stroke="#9b9886" stroke-dasharray="2 4"/><text x="${W-pr+10}" y="${Y(y)+4}" font-size="11" fill="#6B6A60" class="mono" font-family="DejaVu Sans Mono">${fmt(y,0)}</text>`}
+  const lab=['09:15','10:30','11:45','13:00','14:15','15:30'];
+  lab.forEach((t,i)=>{const x=pl+i*(W-pl-pr)/5;g+=`<line x1="${x}" x2="${x}" y1="${pt}" y2="${H-pb}" stroke="#d6d2c2"/><text x="${x}" y="${H-12}" font-size="11" fill="#6B6A60" text-anchor="${i==0?'start':i==5?'end':'middle'}" font-family="DejaVu Sans Mono">${t}</text>`});
+  const pts=a.map((y,i)=>X(i).toFixed(1)+','+Y(y).toFixed(1));
+  const area=`M${X(0)},${Y(mn)} L${pts.join(' L')} L${X(n-1)},${Y(mn)}Z`;
+  const prev=Y(24216.55);
+  g+=`<line x1="${pl}" x2="${W-pr}" y1="${prev}" y2="${prev}" stroke="#14181A" stroke-width="1" stroke-dasharray="6 4"/><text x="${pl+4}" y="${prev-6}" font-size="10.5" fill="#14181A" font-family="Inter" font-weight="600">Prev. close 24,216.55</text>`;
+  g+=`<path d="${area}" fill="#0F7B4F" fill-opacity=".10"/><polyline points="${pts.join(' ')}" fill="none" stroke="#14181A" stroke-width="2.2" stroke-linejoin="round"/>`;
+  const lx=X(n-1),ly=Y(a[n-1]);
+  g+=`<circle cx="${lx}" cy="${ly}" r="5.5" fill="#0F7B4F" stroke="#14181A" stroke-width="1.5"/><rect x="${lx+10}" y="${ly-11}" width="62" height="22" fill="#14181A"/><text x="${lx+41}" y="${ly+4}" font-size="11.5" fill="#F2EFE6" text-anchor="middle" font-family="DejaVu Sans Mono" font-weight="700">24,318.40</text>`;
+  // callouts
+  const c1x=X(44),c1y=Y(a[44]);
+  g+=`<line x1="${c1x}" y1="${c1y+4}" x2="${c1x-34}" y2="${c1y+62}" stroke="#C8372D" stroke-width="1.4"/><circle cx="${c1x}" cy="${c1y}" r="3.5" fill="#C8372D"/><text x="${c1x-122}" y="${c1y+78}" font-family="Lora" font-style="italic" font-size="14" fill="#C8372D" font-weight="700">11:30 — policy remarks</text><text x="${c1x-122}" y="${c1y+95}" font-family="Lora" font-style="italic" font-size="12.5" fill="#14181A">banks jump, index gaps up</text>`;
+  const c2x=X(8),c2y=Y(a[8]);
+  g+=`<line x1="${c2x}" y1="${c2y-4}" x2="${c2x+20}" y2="${c2y-44}" stroke="#14181A" stroke-width="1.2"/><text x="${c2x+8}" y="${c2y-50}" font-family="Lora" font-style="italic" font-size="13" fill="#14181A">weak open, then recovery</text>`;
+  el.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${g}</svg>`;
+})();
+
+// ---------- candlestick (screen 2) ----------
+(function(){
+  const el=document.getElementById('c2');const W=el.clientWidth||820,H=392,pl=16,pr=84,pt=18,pb=30,vh=74;
+  const n=62,r=rng(42);let p=1010,c=[];
+  for(let i=0;i<n;i++){const o=p;const ch=(r()-.44)*26+ (i>40?3:1.6);const cl=o+ch;const hi=Math.max(o,cl)+r()*12,lo=Math.min(o,cl)-r()*12;p=cl;c.push({o,c:cl,h:hi,l:lo,v:.5+r()*.9+Math.abs(ch)/30})}
+  // end exactly at 1248.60
+  const k=1248.60-c[n-1].c;c.forEach((d,i)=>{const s=k*(i/(n-1));d.o+=s;d.c+=s;d.h+=s;d.l+=s});
+  const mn=Math.min(...c.map(d=>d.l))-10,mx=Math.max(...c.map(d=>d.h))+10;
+  const ch=H-pt-pb-vh-10;
+  const X=i=>pl+(i+.5)*(W-pl-pr)/n,Y=y=>pt+(1-(y-mn)/(mx-mn))*ch;
+  let g='';
+  const step=50,y0=Math.ceil(mn/step)*step;
+  for(let y=y0;y<mx;y+=step)g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(y)}" y2="${Y(y)}" stroke="#9b9886" stroke-dasharray="2 4"/><text x="${W-pr+10}" y="${Y(y)+4}" font-size="11" fill="#6B6A60" font-family="DejaVu Sans Mono">${fmt(y,0)}</text>`;
+  const bw=(W-pl-pr)/n*.62;
+  c.forEach((d,i)=>{const up=d.c>=d.o,col=up?'#0F7B4F':'#C8372D';
+    g+=`<line x1="${X(i)}" x2="${X(i)}" y1="${Y(d.h)}" y2="${Y(d.l)}" stroke="${col}" stroke-width="1.6"/><rect x="${X(i)-bw/2}" y="${Y(Math.max(d.o,d.c))}" width="${bw}" height="${Math.max(2,Math.abs(Y(d.o)-Y(d.c)))}" fill="${col}"/>`;
+    const vv=d.v/1.9*vh;g+=`<rect x="${X(i)-bw/2}" y="${H-pb-vv}" width="${bw}" height="${vv}" fill="${up?'#0F7B4F':'#C8372D'}" fill-opacity=".42"/>`});
+  g+=`<line x1="${pl}" x2="${W-pr}" y1="${H-pb}" y2="${H-pb}" stroke="#14181A"/><text x="${pl}" y="${H-pb-vh-2}" font-size="10" letter-spacing="1.5" fill="#6B6A60" font-family="Inter" font-weight="600">VOLUME</text>`;
+  ['Sep','','Oct','','Nov'].forEach((t,i)=>{const x=pl+i*(W-pl-pr)/4.2+30;g+=`<text x="${x}" y="${H-10}" font-size="11" fill="#6B6A60" font-family="DejaVu Sans Mono">${t}</text>`});
+  const ly=Y(c[n-1].c);
+  g+=`<line x1="${pl}" x2="${W-pr}" y1="${ly}" y2="${ly}" stroke="#14181A" stroke-width="1" stroke-dasharray="5 3"/><rect x="${W-pr+4}" y="${ly-12}" width="74" height="24" fill="#14181A"/><text x="${W-pr+41}" y="${ly+4}" font-size="12" fill="#F2EFE6" text-anchor="middle" font-family="DejaVu Sans Mono" font-weight="700">1,248.60</text>`;
+  // annotation
+  const ai=44;g+=`<line x1="${X(ai)}" y1="${Y(c[ai].h)-4}" x2="${X(ai)-30}" y2="${Y(c[ai].h)-46}" stroke="#14181A" stroke-width="1.2"/><circle cx="${X(ai)}" cy="${Y(c[ai].h)-4}" r="3" fill="#14181A"/><text x="${X(ai)-150}" y="${Y(c[ai].h)-52}" font-family="Lora" font-style="italic" font-size="14" fill="#14181A">Results day — gap up on volume</text>`;
+  el.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${g}</svg>`;
+})();
+
+// ---------- watchlist (screen 3) ----------
+(function(){
+  const d=[['Meridian Steel','MRDN',1248.60,22.20,1.81,1,true],['Kaveri Power','KVPW',412.35,12.75,3.20,1],['Atlas Bank','ATLB',1102.15,8.40,0.77,1],['Northstar Telecom','NRST',286.90,-7.78,-2.64,0],['Zenith Finserv','ZNFN',645.80,-2.01,-0.31,0],['Crown Auto','CRWN',2214.50,31.60,1.45,1],['Pinecrest Foods','PNCF',1876.30,-29.55,-1.55,0],['Lotus Cements','LTCM',903.10,14.60,1.64,1]];
+  document.getElementById('w3').innerHTML=d.map((x,i)=>{const up=x[3]>=0;return `<tr class="${x[6]?'sel':''}"><td style="text-align:center"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.7-5.7 5 1.8 7.4L12 18l-6.6 4 1.8-7.4-5.7-5 7.5-.7z" fill="${x[6]?'#14181A':'#F5D547'}" stroke="#14181A" stroke-width="1.6" stroke-linejoin="round"/></svg></td><td style="padding-left:8px"><span class="nm">${x[0]}</span><span class="tk mono">${x[1]} · NSE</span></td><td class="mono" style="font-weight:600">${fmt(x[2])}</td><td class="mono ${up?'up':'dn'}">${up?'+':'−'}${fmt(Math.abs(x[3]))}</td><td class="mono ${up?'up':'dn'}" style="font-weight:600">${up?'▲':'▼'} ${Math.abs(x[4]).toFixed(2)}%</td><td style="text-align:right">${spark(300+i*7,up,100,26)}</td></tr>`}).join('');
+  // donut
+  const sec=[['Banking',34,'#14181A'],['Metals & Steel',22,'#0F7B4F'],['Energy',18,'#F5D547'],['Pharma',14,'#9b9886'],['Auto & others',12,'#E4E0D2']];
+  const R=70,cx=84,cy=84,C=2*Math.PI*R;let off=0,s='';
+  sec.forEach(x=>{const len=C*x[1]/100;s+=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="${x[2]}" stroke-width="30" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}" transform="rotate(-90 ${cx} ${cy})"/>`;off+=len});
+  s+=`<circle cx="${cx}" cy="${cy}" r="${R+15}" fill="none" stroke="#14181A" stroke-width="1.5"/><circle cx="${cx}" cy="${cy}" r="${R-15}" fill="none" stroke="#14181A" stroke-width="1.5"/><text x="${cx}" y="${cy-2}" text-anchor="middle" font-family="Lora" font-weight="700" font-size="22" fill="#14181A">5</text><text x="${cx}" y="${cy+14}" text-anchor="middle" font-family="Inter" font-size="9.5" letter-spacing="1.4" font-weight="600" fill="#6B6A60">SECTORS</text>`;
+  document.getElementById('donut').innerHTML=s;
+  document.getElementById('legend').innerHTML=sec.map(x=>`<div style="display:flex;align-items:center;gap:9px;padding:5.5px 0;border-bottom:1px dotted #9b9886"><i style="width:12px;height:12px;background:${x[2]};border:1.5px solid #14181A;display:inline-block"></i><span style="flex:1;font-weight:500">${x[0]}</span><b class="mono" style="font-size:12.5px">${x[1]}%</b></div>`).join('');
+  // holdings
+  const h=[['Meridian Steel','MRDN',60,68400,74916],['Atlas Bank','ATLB',45,46980,49597],['Kaveri Power','KVPW',150,55200,61852],['Northstar Telecom','NRST',90,27900,25821]];
+  document.getElementById('h3').innerHTML=h.map(x=>{const pl=x[4]-x[3],up=pl>=0;return `<tr><td style="height:38px"><span class="nm">${x[0]}</span></td><td class="mono">${x[2]}</td><td class="mono">${fmt(x[3],0)}</td><td class="mono ${up?'up':'dn'}" style="font-weight:600">${up?'+':'−'}${fmt(Math.abs(pl),0)}</td></tr>`}).join('');
+})();
+
+// ---------- grain ----------
+(function(){const c=document.createElement('canvas');c.width=c.height=160;const x=c.getContext('2d');const id=x.createImageData(160,160);const r=rng(99);
+  for(let i=0;i<id.data.length;i+=4){const v=r()*255;id.data[i]=id.data[i+1]=id.data[i+2]=v<128?60:255;id.data[i+3]=r()<.16?22:0}
+  x.putImageData(id,0,0);const u=c.toDataURL();
+  document.querySelectorAll('.page').forEach(p=>{const d=document.createElement('div');d.className='grain';d.style.backgroundImage=`url(${u})`;p.appendChild(d)})})();
+</script>
+</body></html>

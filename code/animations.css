@@ -1,0 +1,73 @@
+/* ==========================================================================
+   BOURSE·DAILY — code/animations.css (Copied verbatim from spec package)
+   ========================================================================== */
+
+/* ==========================================================================
+   BOURSE·DAILY — ANIMATIONS & MICROINTERACTIONS CSS
+   ========================================================================== */
+
+/* 1. Price Flash Animations */
+@keyframes flashGreen {
+  0% { background-color: rgba(15, 123, 79, 0.35); color: #0F7B4F; }
+  100% { background-color: transparent; }
+}
+
+@keyframes flashRed {
+  0% { background-color: rgba(200, 55, 45, 0.35); color: #C8372D; }
+  100% { background-color: transparent; }
+}
+
+.flash-up {
+  animation: flashGreen 1.2s ease-out;
+}
+
+.flash-down {
+  animation: flashRed 1.2s ease-out;
+}
+
+/* 2. Star button styling & animation */
+.star-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--mute);
+  padding: 2px 6px;
+  transition: transform 0.15s ease, color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.star-btn:hover {
+  transform: scale(1.2);
+  color: #D4AF37;
+}
+.star-btn.starred {
+  color: #D4AF37;
+  animation: starPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes starPop {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+/* 3. Newspaper Page Fold Transition */
+.page-transitioning {
+  transform-origin: top center;
+  animation: foldOut 0.35s ease-in-out forwards;
+}
+
+@keyframes foldOut {
+  0% { transform: rotateX(0deg); opacity: 1; }
+  100% { transform: rotateX(-15deg) translateY(-20px); opacity: 0; }
+}
+
+/* 4. Reduced Motion Overrides */
+@media (prefers-reduced-motion: reduce) {
+  .flash-up, .flash-down, .star-btn.starred, .page-transitioning {
+    animation: none !important;
+    transition: none !important;
+  }
+}

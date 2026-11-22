@@ -12,57 +12,62 @@
 </head>
 <body>
 
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- TICKER BAR -->
-  <div class="ticker-bar">
+  <div class="ticker-bar" aria-label="Market Ticker">
     <div class="ticker-track" id="ticker-track"></div>
   </div>
 
   <!-- MASTHEAD -->
-  <header class="mast">
+  <header class="mast" role="banner">
     <div class="wrap">
       <div class="mast-top">
-        <div class="mast-date">WEDNESDAY, MARCH 25, 2026 — VOL. XXIV NO. 82</div>
-        <a href="index.html" class="logo-link">
-          <h1 class="logo">BOURSE<i>·</i>DAILY</h1>
+        <div class="mast-date" id="current-date">WEDNESDAY, MARCH 25, 2026 — VOL. XXIV NO. 82</div>
+        <a href="index.html" class="logo-link" aria-label="Bourse Daily Home">
+          <span class="logo font-display">BOURSE<i>·</i>DAILY</span>
         </a>
         <div class="mast-actions">
           <div class="search-box">
-            <span class="search-icon">🔍</span>
+            <label for="search-input" class="visually-hidden">Search companies and symbols</label>
+            <svg class="search-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" id="search-input" class="search-input" placeholder="Search companies, symbols..." autocomplete="off">
-            <div id="search-dropdown" class="search-dropdown"></div>
+            <div id="search-dropdown" class="search-dropdown" role="listbox"></div>
           </div>
-          <button id="sim-pause-btn" class="btn">Pause Ticker</button>
+          <button id="sim-pause-btn" class="btn" aria-pressed="false">Pause Ticker</button>
         </div>
       </div>
-      <nav class="nav-bar">
+      <nav class="nav-bar" aria-label="Primary">
         <a href="index.html" class="nav-link">Markets</a>
-        <a href="watchlist.html" class="nav-link active" id="nav-watchlist">Watchlist</a>
+        <a href="watchlist.html" class="nav-link active" id="nav-watchlist" aria-current="page">Watchlist</a>
         <a href="#portfolio" class="nav-link" id="nav-portfolio">Portfolio</a>
         <a href="learn.html" class="nav-link">Learn & Analysis</a>
+        <a href="qa.html" class="nav-link">QA Report</a>
       </nav>
     </div>
   </header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap" style="padding-top: 24px; padding-bottom: 48px;">
+  <main id="main-content" class="wrap main-wrap">
     
     <!-- WATCHLIST SECTION -->
     <div class="sec-head" id="watchlist-section">
-      <h3 class="sec-title">My Watchlist</h3>
+      <h2 class="sec-title">My Watchlist</h2>
       <span class="sec-meta">Starred Equities Realtime Feed</span>
     </div>
 
-    <div class="box" style="padding: 0; overflow-x: auto;">
-      <table>
+    <div class="box table-box">
+      <table aria-label="Watchlist Equities">
         <thead>
           <tr>
-            <th style="width: 40px;">★</th>
-            <th>Symbol & Company</th>
-            <th>Sector</th>
-            <th style="text-align: right;">Price (₹)</th>
-            <th style="text-align: right;">Change</th>
-            <th style="text-align: right;">Mkt Cap</th>
-            <th style="text-align: center;">Quick Action</th>
+            <th scope="col" style="width: 44px;">★</th>
+            <th scope="col">Symbol & Company</th>
+            <th scope="col">Sector</th>
+            <th scope="col" style="text-align: right;">Price (₹)</th>
+            <th scope="col" style="text-align: right;">Change</th>
+            <th scope="col" style="text-align: right;">Mkt Cap (Cr)</th>
+            <th scope="col" style="text-align: center;">Quick Action</th>
           </tr>
         </thead>
         <tbody id="watchlist-tbody">
@@ -73,38 +78,49 @@
 
     <!-- PORTFOLIO / HOLDINGS SECTION -->
     <div class="sec-head" id="portfolio">
-      <h3 class="sec-title">My Portfolio Holdings</h3>
+      <h2 class="sec-title">My Portfolio Holdings</h2>
       <span class="sec-meta">Brokerage Account Simulation</span>
     </div>
 
-    <div class="box" style="margin-bottom: 24px; background: rgba(0,0,0,0.02);">
-      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: center;">
+    <!-- AI PORTFOLIO INSIGHTS -->
+    <div class="box ai-insights-card" style="margin-bottom: 24px;">
+      <div class="ai-insights-header">
+        <span>🤖 Bourse AI Portfolio Intelligence (Rule-Based Engine)</span>
+        <span class="ai-badge">Risk & Diversification</span>
+      </div>
+      <ul id="portfolio-ai-insights-list" class="ai-insights-list">
+        <!-- Populated by JS -->
+      </ul>
+    </div>
+
+    <div class="box portfolio-summary-box">
+      <div class="portfolio-summary-grid">
         <div>
-          <div style="font-size:11px; text-transform:uppercase; color:var(--mute); font-weight:600; margin-bottom:4px;">Total Invested Value</div>
-          <div id="portfolio-invested" class="mono" style="font-size:22px; font-weight:700;">₹ 0.00</div>
+          <div class="summary-label">Total Invested Value</div>
+          <div id="portfolio-invested" class="mono summary-val">₹ 0.00</div>
         </div>
         <div>
-          <div style="font-size:11px; text-transform:uppercase; color:var(--mute); font-weight:600; margin-bottom:4px;">Current Portfolio Value</div>
-          <div id="portfolio-current" class="mono" style="font-size:22px; font-weight:700;">₹ 0.00</div>
+          <div class="summary-label">Current Portfolio Value</div>
+          <div id="portfolio-current" class="mono summary-val">₹ 0.00</div>
         </div>
         <div>
-          <div style="font-size:11px; text-transform:uppercase; color:var(--mute); font-weight:600; margin-bottom:4px;">Total Unrealized P&L</div>
-          <div id="portfolio-pnl" class="mono" style="font-size:22px; font-weight:700;">₹ 0.00</div>
+          <div class="summary-label">Total Unrealized P&amp;L</div>
+          <div id="portfolio-pnl" class="mono summary-val">₹ 0.00</div>
         </div>
       </div>
     </div>
 
-    <div class="box" style="padding: 0; overflow-x: auto;">
-      <table>
+    <div class="box table-box">
+      <table aria-label="Portfolio Holdings">
         <thead>
           <tr>
-            <th>Symbol & Company</th>
-            <th style="text-align: right;">Qty</th>
-            <th style="text-align: right;">Avg Price (₹)</th>
-            <th style="text-align: right;">LTP (₹)</th>
-            <th style="text-align: right;">Current Value (₹)</th>
-            <th style="text-align: right;">Unrealized P&L</th>
-            <th style="text-align: center;">Actions</th>
+            <th scope="col">Symbol & Company</th>
+            <th scope="col" style="text-align: right;">Qty</th>
+            <th scope="col" style="text-align: right;">Avg Price (₹)</th>
+            <th scope="col" style="text-align: right;">LTP (₹)</th>
+            <th scope="col" style="text-align: right;">Current Value (₹)</th>
+            <th scope="col" style="text-align: right;">Unrealized P&amp;L</th>
+            <th scope="col" style="text-align: center;">Actions</th>
           </tr>
         </thead>
         <tbody id="portfolio-tbody">
@@ -116,37 +132,37 @@
   </main>
 
   <!-- FOOTER -->
-  <footer>
-    <div class="wrap">
-      <div class="serif" style="font-size: 24px; font-weight: 700;">BOURSE<i>·</i>DAILY</div>
+  <footer role="contentinfo">
+    <div class="wrap footer-wrap">
+      <div class="serif footer-logo">BOURSE<i>·</i>DAILY</div>
       <p class="legal">Sample data and fictional companies, for demonstration only.</p>
-      <div style="font-size: 11px; color: #9B9886; margin-top: 8px;">© 2026 Bourse Daily Media Inc. All rights reserved. Data delayed by 15 minutes.</div>
+      <div class="footer-copy">© 2026 Bourse Daily Media Inc. All rights reserved. Data delayed by 15 minutes.</div>
     </div>
   </footer>
 
   <!-- BUY / SELL MODAL -->
-  <div id="trade-modal" class="modal-backdrop">
+  <div id="trade-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title">
     <div class="modal">
-      <button id="modal-close" class="modal-close">×</button>
-      <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--mute); margin-bottom: 4px;">Order Execution Desk</div>
-      <h3 id="modal-title" class="serif" style="font-size: 22px; margin-bottom: 16px;">BUY — MRDN</h3>
+      <button id="modal-close" class="modal-close" aria-label="Close modal">×</button>
+      <div class="modal-subtitle">Order Execution Desk</div>
+      <h3 id="modal-title" class="serif modal-heading">BUY — MRDN</h3>
       
-      <div class="btn-group" style="width: 100%; margin-bottom: 16px;">
-        <button id="tab-buy" class="active" style="flex:1;">BUY</button>
-        <button id="tab-sell" style="flex:1;">SELL</button>
+      <div class="btn-group modal-tabs" role="tablist">
+        <button id="tab-buy" class="active" role="tab" aria-selected="true" style="flex:1;">BUY</button>
+        <button id="tab-sell" role="tab" aria-selected="false" style="flex:1;">SELL</button>
       </div>
 
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px; padding: 12px; background: rgba(0,0,0,0.03); border: 1px solid var(--ink);">
+      <div class="modal-price-box">
         <span>Current Market Price:</span>
         <strong id="modal-price" class="mono" style="font-size: 16px;">₹ 1,245.50</strong>
       </div>
 
       <div style="margin-bottom: 16px;">
-        <label style="display:block; font-size: 12px; font-weight: 600; margin-bottom: 6px;">QUANTITY OF SHARES</label>
+        <label for="trade-qty" style="display:block; font-size: 12px; font-weight: 600; margin-bottom: 6px;">QUANTITY OF SHARES</label>
         <input type="number" id="trade-qty" value="10" min="1" class="search-input" style="width: 100%; padding: 10px; font-family:var(--font-mono); font-size:16px;">
       </div>
 
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px; padding-top: 12px; border-top: 1px dotted var(--line-color);">
+      <div class="modal-total-row">
         <span style="font-weight: 600;">Estimated Total:</span>
         <strong id="trade-total" class="mono" style="font-size: 18px; color: var(--ink);">₹ 12,455.00</strong>
       </div>
@@ -158,22 +174,23 @@
   <!-- SCRIPTS -->
   <script src="js/data.js"></script>
   <script src="js/charts.js"></script>
+  <script src="js/insights.js"></script>
+  <script src="js/ai-bridge.js"></script>
   <script src="code/animations.js"></script>
+  <script src="js/app.js"></script>
   <script>
-    // Populate Ticker
     const tickerTrack = document.getElementById('ticker-track');
     if (tickerTrack && window.BourseData) {
       const items = BourseData.companies.map(c => `
         <div class="ticker-item">
           <span class="symbol">${c.symbol}</span>
           <span class="price mono" data-price-symbol="${c.symbol}">₹ ${BourseData.formatINR(c.price)}</span>
-          <span class="chg ${c.change >= 0 ? 'up' : 'dn'}" data-change-symbol="${c.symbol}">${c.change >= 0 ? '▲' : '▼'} ${c.change >= 0 ? '+' : ''}${BourseData.formatINR(c.change)}</span>
+          <span class="chg ${c.change >= 0 ? 'up' : 'dn'}" data-change-symbol="${c.symbol}" aria-live="polite">${c.change >= 0 ? '▲' : '▼'} ${c.change >= 0 ? '+' : ''}${BourseData.formatINR(c.change)}</span>
         </div>
       `).join('');
-      tickerTrack.innerHTML = items + items;
+      tickerTrack.innerHTML = items + '<div aria-hidden="true" style="display:flex;">' + items + '</div>';
     }
 
-    // Render Watchlist Page
     window.renderWatchlistPage = function() {
       const tbody = document.getElementById('watchlist-tbody');
       if (!tbody || !window.BourseData) return;
@@ -188,7 +205,7 @@
       tbody.innerHTML = starredCompanies.map(c => `
         <tr>
           <td>
-            <button class="star-btn starred" data-symbol="${c.symbol}">★</button>
+            <button class="star-btn starred" data-symbol="${c.symbol}" aria-label="Remove ${c.symbol} from Watchlist" aria-pressed="true">★</button>
           </td>
           <td>
             <a href="stock.html?symbol=${c.symbol}" style="text-decoration:none; color:var(--ink);">
@@ -198,7 +215,7 @@
           <td>${c.sector}</td>
           <td style="text-align: right;" class="mono" data-price-symbol="${c.symbol}">${BourseData.formatINR(c.price)}</td>
           <td style="text-align: right;" data-change-symbol="${c.symbol}">${BourseData.formatChange(c.change, c.changePct)}</td>
-          <td style="text-align: right;" class="mono">₹ ${c.mCap}</td>
+          <td style="text-align: right;" class="mono">₹ ${BourseData.formatINR(c.mCapNum || 0, 0)} Cr</td>
           <td style="text-align: center;">
             <button class="btn" style="padding: 4px 10px; font-size: 11px;" data-trade-action="BUY" data-symbol="${c.symbol}">Trade</button>
           </td>
@@ -206,7 +223,6 @@
       `).join('');
     };
 
-    // Render Portfolio Page
     window.renderPortfolioPage = function() {
       const tbody = document.getElementById('portfolio-tbody');
       if (!tbody || !window.BourseData) return;
@@ -215,12 +231,18 @@
       let totalInvested = 0;
       let totalCurrent = 0;
 
+      // Populate Portfolio AI Insights
+      const portfolioAiList = document.getElementById('portfolio-ai-insights-list');
+      if (portfolioAiList && window.BourseInsights) {
+        const pInsights = BourseInsights.forPortfolio();
+        portfolioAiList.innerHTML = pInsights.map(i => `<li class="ai-insight-item"><span>•</span> ${i.text}</li>`).join('');
+      }
+
       if (holdings.length === 0) {
         tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 32px; color:var(--mute);">No active holdings in your portfolio. Use the trade buttons to buy equities.</td></tr>`;
         document.getElementById('portfolio-invested').textContent = '₹ 0.00';
         document.getElementById('portfolio-current').textContent = '₹ 0.00';
         document.getElementById('portfolio-pnl').textContent = '₹ 0.00';
-        document.getElementById('portfolio-pnl').className = 'mono';
         return;
       }
 
@@ -245,7 +267,7 @@
             <td style="text-align: right;" class="mono">₹ ${BourseData.formatINR(h.avgPrice)}</td>
             <td style="text-align: right;" class="mono" data-price-symbol="${comp.symbol}">${BourseData.formatINR(comp.price)}</td>
             <td style="text-align: right;" class="mono">₹ ${BourseData.formatINR(current)}</td>
-            <td style="text-align: right;">${BourseData.formatChange(pnl, pnlPct)}</td>
+            <td style="text-align: right;" data-change-symbol="${comp.symbol}">${BourseData.formatChange(pnl, pnlPct)}</td>
             <td style="text-align: center; display:flex; gap:6px; justify-content:center;">
               <button class="btn" style="padding: 3px 8px; font-size: 11px;" data-trade-action="BUY" data-symbol="${comp.symbol}">Buy</button>
               <button class="btn" style="padding: 3px 8px; font-size: 11px;" data-trade-action="SELL" data-symbol="${comp.symbol}">Sell</button>
@@ -259,14 +281,12 @@
 
       document.getElementById('portfolio-invested').textContent = '₹ ' + BourseData.formatINR(totalInvested);
       document.getElementById('portfolio-current').textContent = '₹ ' + BourseData.formatINR(totalCurrent);
-      const pnlEl = document.getElementById('portfolio-pnl');
-      pnlEl.innerHTML = BourseData.formatChange(totalPnl, totalPnlPct);
+      document.getElementById('portfolio-pnl').innerHTML = BourseData.formatChange(totalPnl, totalPnlPct);
     };
 
     renderWatchlistPage();
     renderPortfolioPage();
 
-    // Tab switching highlighting
     if (window.location.hash === '#portfolio') {
       document.getElementById('nav-portfolio').classList.add('active');
       document.getElementById('nav-watchlist').classList.remove('active');

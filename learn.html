@@ -12,42 +12,78 @@
 </head>
 <body>
 
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- TICKER BAR -->
-  <div class="ticker-bar">
+  <div class="ticker-bar" aria-label="Market Ticker">
     <div class="ticker-track" id="ticker-track"></div>
   </div>
 
   <!-- MASTHEAD -->
-  <header class="mast">
+  <header class="mast" role="banner">
     <div class="wrap">
       <div class="mast-top">
-        <div class="mast-date">WEDNESDAY, MARCH 25, 2026 — VOL. XXIV NO. 82</div>
-        <a href="index.html" class="logo-link">
-          <h1 class="logo">BOURSE<i>·</i>DAILY</h1>
+        <div class="mast-date" id="current-date">WEDNESDAY, MARCH 25, 2026 — VOL. XXIV NO. 82</div>
+        <a href="index.html" class="logo-link" aria-label="Bourse Daily Home">
+          <span class="logo font-display">BOURSE<i>·</i>DAILY</span>
         </a>
         <div class="mast-actions">
           <div class="search-box">
-            <span class="search-icon">🔍</span>
+            <label for="search-input" class="visually-hidden">Search companies and symbols</label>
+            <svg class="search-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" id="search-input" class="search-input" placeholder="Search companies, symbols..." autocomplete="off">
-            <div id="search-dropdown" class="search-dropdown"></div>
+            <div id="search-dropdown" class="search-dropdown" role="listbox"></div>
           </div>
-          <button id="sim-pause-btn" class="btn">Pause Ticker</button>
+          <button id="sim-pause-btn" class="btn" aria-pressed="false">Pause Ticker</button>
         </div>
       </div>
-      <nav class="nav-bar">
+      <nav class="nav-bar" aria-label="Primary">
         <a href="index.html" class="nav-link">Markets</a>
         <a href="watchlist.html" class="nav-link">Watchlist</a>
         <a href="watchlist.html#portfolio" class="nav-link">Portfolio</a>
-        <a href="learn.html" class="nav-link active">Learn & Analysis</a>
+        <a href="learn.html" class="nav-link active" aria-current="page">Learn & Analysis</a>
+        <a href="qa.html" class="nav-link">QA Report</a>
       </nav>
     </div>
   </header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap" style="padding-top: 24px; padding-bottom: 48px;">
+  <main id="main-content" class="wrap main-wrap">
     
+    <!-- ASK THE ANALYST (AI CHAT SECTION) -->
     <div class="sec-head">
-      <h3 class="sec-title">Investor Education & Market Primers</h3>
+      <h2 class="sec-title">Ask the Analyst (AI Intelligence)</h2>
+      <span class="sec-meta">Interactive Market Q&amp;A</span>
+    </div>
+
+    <div class="box" style="margin-bottom: 36px;">
+      <div style="font-size: 13.5px; color: var(--mute); margin-bottom: 12px;">
+        Query market metrics, screen equities by P/E or 52-week highs, or compare companies using natural language.
+      </div>
+      
+      <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+        <input type="text" id="analyst-query-input" class="search-input" style="flex: 1; padding: 10px 14px;" placeholder="e.g. Which stocks are near their 52-week high? or Compare MRDN and CYBR">
+        <button id="analyst-submit-btn" class="btn primary" style="padding: 10px 20px;">Ask Analyst</button>
+      </div>
+
+      <!-- Quick Prompt Chips -->
+      <div style="display:flex; flex-wrap:wrap; gap: 8px; margin-bottom: 16px;" id="analyst-chips">
+        <button class="btn" style="font-size:11px; padding: 4px 10px;" data-query="Which stocks are near their 52-week high?">Stocks near 52W High</button>
+        <button class="btn" style="font-size:11px; padding: 4px 10px;" data-query="Show loss-making companies">Loss-making Companies</button>
+        <button class="btn" style="font-size:11px; padding: 4px 10px;" data-query="Compare MRDN and CYBR">Compare MRDN &amp; CYBR</button>
+        <button class="btn" style="font-size:11px; padding: 4px 10px;" data-query="Biggest gainer in Technology">Top Tech Gainers</button>
+      </div>
+
+      <!-- Analyst Response Area -->
+      <div id="analyst-response-box" style="background: rgba(0,0,0,0.02); border: 1.5px solid var(--ink); padding: 16px; display: none;">
+        <div id="analyst-answer-text" style="font-size: 14px; margin-bottom: 12px; line-height: 1.5;"></div>
+        <div id="analyst-table-container" style="overflow-x: auto;"></div>
+      </div>
+    </div>
+
+    <div class="sec-head">
+      <h2 class="sec-title">Investor Education & Market Primers</h2>
       <span class="sec-meta">Bourse Academy Desk</span>
     </div>
 
@@ -57,7 +93,7 @@
       <div class="box" style="display:flex; flex-direction:column; justify-content:space-between;">
         <div>
           <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--mute); margin-bottom:6px;">FUNDAMENTAL ANALYSIS</div>
-          <h2 class="serif" style="font-size: 22px; line-height: 1.25; margin-bottom: 12px;">Decoding the Price-to-Earnings (P/E) Ratio in Indian Equities</h2>
+          <h3 class="serif" style="font-size: 22px; line-height: 1.25; margin-bottom: 12px;">Decoding the Price-to-Earnings (P/E) Ratio in Indian Equities</h3>
           <p style="font-size: 13.5px; color: var(--mute); line-height: 1.6; margin-bottom: 16px;">
             The P/E ratio is the most widely used valuation metric. Discover how to evaluate whether a company is overvalued or trading at an attractive discount relative to its earnings growth rate (PEG).
           </p>
@@ -72,7 +108,7 @@
       <div class="box" style="display:flex; flex-direction:column; justify-content:space-between;">
         <div>
           <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--mute); margin-bottom:6px;">MARKET MECHANICS</div>
-          <h2 class="serif" style="font-size: 22px; line-height: 1.25; margin-bottom: 12px;">Understanding Level 2 Market Depth (Bid & Ask Queues)</h2>
+          <h3 class="serif" style="font-size: 22px; line-height: 1.25; margin-bottom: 12px;">Understanding Level 2 Market Depth (Bid &amp; Ask Queues)</h3>
           <p style="font-size: 13.5px; color: var(--mute); line-height: 1.6; margin-bottom: 16px;">
             Behind every quoted stock price lies an active order book of buyers and sellers. Learn how analyzing bid-ask spreads and cumulative volume helps identify immediate support and resistance levels.
           </p>
@@ -87,7 +123,7 @@
       <div class="box" style="display:flex; flex-direction:column; justify-content:space-between;">
         <div>
           <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--mute); margin-bottom:6px;">RISK MANAGEMENT</div>
-          <h2 class="serif" style="font-size: 22px; line-height: 1.25; margin-bottom: 12px;">Portfolio Diversification Across Cyclical and Defensive Sectors</h2>
+          <h3 class="serif" style="font-size: 22px; line-height: 1.25; margin-bottom: 12px;">Portfolio Diversification Across Cyclical and Defensive Sectors</h3>
           <p style="font-size: 13.5px; color: var(--mute); line-height: 1.6; margin-bottom: 16px;">
             Why sector allocation matters during macroeconomic shifts. Balancing high-growth technology and infrastructure stocks with defensive FMCG and pharmaceutical holdings.
           </p>
@@ -102,7 +138,7 @@
 
     <!-- GLOSSARY SECTION -->
     <div class="sec-head">
-      <h3 class="sec-title">Financial Glossary & Terminology</h3>
+      <h2 class="sec-title">Financial Glossary &amp; Terminology</h2>
       <span class="sec-meta">A to Z Reference</span>
     </div>
 
@@ -110,10 +146,10 @@
       <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; font-size: 13.5px;">
         <div style="border-bottom:1px dotted var(--line-color); padding-bottom:12px;">
           <strong class="serif" style="font-size:15px; display:block; margin-bottom:4px;">Market Capitalization (M-Cap)</strong>
-          <span style="color:var(--mute);">The total dollar/rupee market value of a company's outstanding shares, calculated by multiplying shares outstanding by the current share price.</span>
+          <span style="color:var(--mute);">The total rupee market value of a company's outstanding shares, calculated by multiplying shares outstanding by the current share price.</span>
         </div>
         <div style="border-bottom:1px dotted var(--line-color); padding-bottom:12px;">
-          <strong class="serif" style="font-size:15px; display:block; margin-bottom:4px;">Liquidity & Turnover</strong>
+          <strong class="serif" style="font-size:15px; display:block; margin-bottom:4px;">Liquidity &amp; Turnover</strong>
           <span style="color:var(--mute);">Turnover measures the total monetary value of shares traded during a specific session, indicating market depth and ease of execution.</span>
         </div>
         <div style="border-bottom:1px dotted var(--line-color); padding-bottom:12px;">
@@ -130,31 +166,97 @@
   </main>
 
   <!-- FOOTER -->
-  <footer>
-    <div class="wrap">
-      <div class="serif" style="font-size: 24px; font-weight: 700;">BOURSE<i>·</i>DAILY</div>
+  <footer role="contentinfo">
+    <div class="wrap footer-wrap">
+      <div class="serif footer-logo">BOURSE<i>·</i>DAILY</div>
       <p class="legal">Sample data and fictional companies, for demonstration only.</p>
-      <div style="font-size: 11px; color: #9B9886; margin-top: 8px;">© 2026 Bourse Daily Media Inc. All rights reserved. Data delayed by 15 minutes.</div>
+      <div class="footer-copy">© 2026 Bourse Daily Media Inc. All rights reserved. Data delayed by 15 minutes.</div>
     </div>
   </footer>
 
   <!-- SCRIPTS -->
   <script src="js/data.js"></script>
   <script src="js/charts.js"></script>
+  <script src="js/insights.js"></script>
+  <script src="js/ai-bridge.js"></script>
   <script src="code/animations.js"></script>
+  <script src="js/app.js"></script>
   <script>
-    // Populate Ticker
     const tickerTrack = document.getElementById('ticker-track');
     if (tickerTrack && window.BourseData) {
       const items = BourseData.companies.map(c => `
         <div class="ticker-item">
           <span class="symbol">${c.symbol}</span>
           <span class="price mono" data-price-symbol="${c.symbol}">₹ ${BourseData.formatINR(c.price)}</span>
-          <span class="chg ${c.change >= 0 ? 'up' : 'dn'}" data-change-symbol="${c.symbol}">${c.change >= 0 ? '▲' : '▼'} ${c.change >= 0 ? '+' : ''}${BourseData.formatINR(c.change)}</span>
+          <span class="chg ${c.change >= 0 ? 'up' : 'dn'}" data-change-symbol="${c.symbol}" aria-live="polite">${c.change >= 0 ? '▲' : '▼'} ${c.change >= 0 ? '+' : ''}${BourseData.formatINR(c.change)}</span>
         </div>
       `).join('');
-      tickerTrack.innerHTML = items + items;
+      tickerTrack.innerHTML = items + '<div aria-hidden="true" style="display:flex;">' + items + '</div>';
     }
+
+    // Ask the Analyst Logic
+    const queryInput = document.getElementById('analyst-query-input');
+    const submitBtn = document.getElementById('analyst-submit-btn');
+    const respBox = document.getElementById('analyst-response-box');
+    const ansText = document.getElementById('analyst-answer-text');
+    const tableContainer = document.getElementById('analyst-table-container');
+
+    function handleAnalystQuery(queryText) {
+      if (!queryText || !window.BourseInsights) return;
+      const res = BourseInsights.answerQuery(queryText);
+      ansText.textContent = res.answer;
+      respBox.style.display = 'block';
+
+      if (res.table && res.table.length > 0) {
+        tableContainer.innerHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th>Symbol & Company</th>
+                <th>Sector</th>
+                <th style="text-align:right;">Price (₹)</th>
+                <th style="text-align:right;">Change</th>
+                <th style="text-align:right;">P/E</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${res.table.map(c => `
+                <tr>
+                  <td><a href="stock.html?symbol=${c.symbol}" style="text-decoration:none; color:var(--ink);"><strong class="mono">${c.symbol}</strong> - ${c.name}</a></td>
+                  <td>${c.sector}</td>
+                  <td style="text-align:right;" class="mono" data-price-symbol="${c.symbol}">${BourseData.formatINR(c.price)}</td>
+                  <td style="text-align:right;" data-change-symbol="${c.symbol}">${BourseData.formatChange(c.change, c.changePct)}</td>
+                  <td style="text-align:right;" class="mono">${c.pe}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      } else if (res.chips) {
+        tableContainer.innerHTML = `
+          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
+            ${res.chips.map(chip => `<button class="btn" style="font-size:11px; padding:4px 8px;" onclick="document.getElementById('analyst-query-input').value='${chip}'; document.getElementById('analyst-submit-btn').click();">${chip}</button>`).join('')}
+          </div>
+        `;
+      } else {
+        tableContainer.innerHTML = '';
+      }
+    }
+
+    if (submitBtn && queryInput) {
+      submitBtn.addEventListener('click', () => handleAnalystQuery(queryInput.value));
+      queryInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') handleAnalystQuery(queryInput.value);
+      });
+    }
+
+    document.querySelectorAll('#analyst-chips button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const q = btn.dataset.query;
+        queryInput.value = q;
+        handleAnalystQuery(q);
+      });
+    });
   </script>
 </body>
 </html>

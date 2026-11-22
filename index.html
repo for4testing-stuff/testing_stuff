@@ -3,130 +3,156 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BOURSE·DAILY — Financial Chronicle & Markets</title>
+  <title>BOURSE·DAILY — Indian Share Market & Financial Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="code/animations.css">
 </head>
 <body>
 
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- TICKER BAR -->
-  <div class="ticker-bar">
-    <div class="ticker-track" id="ticker-track">
-      <!-- Populated by JS -->
-    </div>
+  <div class="ticker-bar" aria-label="Market Ticker">
+    <div class="ticker-track" id="ticker-track"></div>
   </div>
 
   <!-- MASTHEAD -->
-  <header class="mast">
+  <header class="mast" role="banner">
     <div class="wrap">
       <div class="mast-top">
         <div class="mast-date" id="current-date">WEDNESDAY, MARCH 25, 2026 — VOL. XXIV NO. 82</div>
-        <a href="index.html" class="logo-link">
-          <h1 class="logo">BOURSE<i>·</i>DAILY</h1>
+        <a href="index.html" class="logo-link" aria-label="Bourse Daily Home">
+          <span class="logo font-display">BOURSE<i>·</i>DAILY</span>
         </a>
         <div class="mast-actions">
           <div class="search-box">
-            <span class="search-icon">🔍</span>
+            <label for="search-input" class="visually-hidden">Search companies and symbols</label>
+            <svg class="search-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" id="search-input" class="search-input" placeholder="Search companies, symbols..." autocomplete="off">
-            <div id="search-dropdown" class="search-dropdown"></div>
+            <div id="search-dropdown" class="search-dropdown" role="listbox"></div>
           </div>
-          <button id="sim-pause-btn" class="btn">Pause Ticker</button>
+          <button id="sim-pause-btn" class="btn" aria-pressed="false">Pause Ticker</button>
         </div>
       </div>
-      <nav class="nav-bar">
-        <a href="index.html" class="nav-link active">Markets</a>
+      <nav class="nav-bar" aria-label="Primary">
+        <a href="index.html" class="nav-link active" aria-current="page">Markets</a>
         <a href="watchlist.html" class="nav-link">Watchlist</a>
         <a href="watchlist.html#portfolio" class="nav-link">Portfolio</a>
         <a href="learn.html" class="nav-link">Learn & Analysis</a>
+        <a href="qa.html" class="nav-link">QA Report</a>
       </nav>
     </div>
   </header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap" style="padding-top: 24px; padding-bottom: 48px;">
+  <main id="main-content" class="wrap main-wrap">
     
     <!-- MARKET INDICES & LEAD STORY -->
     <div class="hero-grid">
       <!-- Lead Story Box -->
-      <div class="box" style="display:flex; flex-direction:column; justify-content:space-between;">
+      <div class="box lead-story-box">
         <div>
-          <div style="font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--loss); margin-bottom:8px;">
+          <div class="lead-tag">
             SPECIAL ECONOMIC REPORT • RBI MONETARY POLICY
           </div>
-          <h2 class="serif" style="font-size: 28px; line-height: 1.2; margin-bottom: 12px;">
+          <h2 class="serif lead-headline">
             Reserve Bank Holds Benchmark Repo Rate at 6.50%; Signals Robust Credit Expansion in Corporate Sector
           </h2>
-          <p style="color: var(--mute); font-size: 14px; line-height: 1.6; margin-bottom: 16px;">
+          <p class="lead-desc">
             The Monetary Policy Committee unanimously voted to maintain status quo on interest rates, citing sustained domestic demand, moderated core inflation prints at 3.8%, and strong capital expenditure outlays across manufacturing and clean energy corridors.
           </p>
         </div>
-        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dotted var(--line-color); padding-top:12px;">
-          <span style="font-size:12px; font-weight:600;">By Bourse Research Bureau</span>
-          <a href="learn.html" class="btn primary" style="padding: 6px 14px; font-size: 12px;">Read Full Editorial →</a>
+        <div class="lead-footer">
+          <span class="lead-author">By Bourse Research Bureau</span>
+          <a href="learn.html" class="btn primary btn-sm">Read Full Editorial →</a>
         </div>
       </div>
 
       <!-- Market Indices Box -->
-      <div class="box">
-        <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; border-bottom:1.5px solid var(--ink); padding-bottom:8px; margin-bottom:12px;">
+      <div class="box indices-box">
+        <div class="indices-header">
           Benchmark Indices
         </div>
-        <div style="display:flex; flex-direction:column; gap:14px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px dotted var(--line-color); padding-bottom:10px;">
+        <div class="indices-list">
+          <div class="index-row">
             <div>
-              <div style="font-weight:700; font-size:14px;">SENSEX 30</div>
-              <div style="font-size:11px; color:var(--mute);">BSE Bombay Stock Exchange</div>
+              <div class="index-name">SENSEX 30</div>
+              <div class="index-exchange">BSE Bombay Stock Exchange</div>
             </div>
             <div style="text-align:right;">
-              <div class="mono" style="font-weight:600; font-size:14px;" data-price-symbol="SENSEX">74,215.80</div>
-              <div class="mono up" style="font-size:12px;" data-change-symbol="SENSEX">▲ +412.50 (+0.56%)</div>
+              <div class="mono index-price" data-price-symbol="SENSEX">74,215.80</div>
+              <div class="mono up index-chg" data-change-symbol="SENSEX">▲ +412.50 (+0.56%)</div>
             </div>
           </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px dotted var(--line-color); padding-bottom:10px;">
+          <div class="index-row">
             <div>
-              <div style="font-weight:700; font-size:14px;">NIFTY 50</div>
-              <div style="font-size:11px; color:var(--mute);">NSE National Stock Exchange</div>
+              <div class="index-name">NIFTY 50</div>
+              <div class="index-exchange">NSE National Stock Exchange</div>
             </div>
             <div style="text-align:right;">
-              <div class="mono" style="font-weight:600; font-size:14px;" data-price-symbol="NIFTY">22,504.30</div>
-              <div class="mono up" style="font-size:12px;" data-change-symbol="NIFTY">▲ +128.10 (+0.57%)</div>
+              <div class="mono index-price" data-price-symbol="NIFTY">22,504.30</div>
+              <div class="mono up index-chg" data-change-symbol="NIFTY">▲ +128.10 (+0.57%)</div>
             </div>
           </div>
-          <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="index-row last">
             <div>
-              <div style="font-weight:700; font-size:14px;">BANK NIFTY</div>
-              <div style="font-size:11px; color:var(--mute);">NSE Banking Index</div>
+              <div class="index-name">BANK NIFTY</div>
+              <div class="index-exchange">NSE Banking Index</div>
             </div>
             <div style="text-align:right;">
-              <div class="mono" style="font-weight:600; font-size:14px;" data-price-symbol="BANKNIFTY">48,120.40</div>
-              <div class="mono dn" style="font-size:12px;" data-change-symbol="BANKNIFTY">▼ -45.20 (-0.09%)</div>
+              <div class="mono index-price" data-price-symbol="BANKNIFTY">48,120.40</div>
+              <div class="mono dn index-chg" data-change-symbol="BANKNIFTY">▼ -45.20 (-0.09%)</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- AI MARKET INSIGHTS CARD -->
+    <div class="box ai-insights-card">
+      <div class="ai-insights-header">
+        <span>🤖 Bourse AI Market Intelligence (Offline Engine)</span>
+        <span class="ai-badge">Rule-Based Active</span>
+      </div>
+      <ul id="market-ai-insights-list" class="ai-insights-list">
+        <!-- Populated by JS -->
+      </ul>
+    </div>
+
     <!-- ACTIVE STOCKS SECTION -->
     <div class="sec-head">
-      <h3 class="sec-title">Most Active Equities</h3>
+      <h2 class="sec-title">Most Active Equities</h2>
       <span class="sec-meta">BSE / NSE Realtime Feed</span>
     </div>
 
-    <div class="box" style="padding: 0; overflow-x: auto;">
-      <table>
+    <!-- Table Toolbar: Sector Filter & Sorting -->
+    <div class="table-toolbar">
+      <div class="filter-group">
+        <label for="sector-filter" style="font-size:12px; font-weight:600;">Sector Filter:</label>
+        <select id="sector-filter" class="search-input" style="width: 200px; padding: 5px 10px;">
+          <option value="ALL">All Sectors</option>
+        </select>
+      </div>
+      <div style="font-size:12px; color:var(--mute);">Showing equities with live BSE/NSE order flow</div>
+    </div>
+
+    <div class="box table-box">
+      <table aria-label="Most Active Equities">
+        <caption>Real-time stock price feed, valuation, and market capitalization for Bourse Daily equities.</caption>
         <thead>
           <tr>
-            <th style="width: 40px;">★</th>
-            <th>Symbol & Company</th>
-            <th>Sector</th>
-            <th style="text-align: right;">Price (₹)</th>
-            <th style="text-align: right;">Change</th>
-            <th style="text-align: right;">Mkt Cap</th>
-            <th style="text-align: right;">P/E</th>
-            <th style="text-align: center;">Quick Action</th>
+            <th scope="col" style="width: 44px;">★</th>
+            <th scope="col">Symbol & Company</th>
+            <th scope="col">Sector</th>
+            <th scope="col" style="text-align: right;" aria-sort="none">Price (₹)</th>
+            <th scope="col" style="text-align: right;">Change</th>
+            <th scope="col" style="text-align: right;">Mkt Cap (Cr)</th>
+            <th scope="col" style="text-align: right;">P/E</th>
+            <th scope="col" style="text-align: center;">Quick Action</th>
           </tr>
         </thead>
         <tbody id="home-stocks-tbody">
@@ -137,75 +163,75 @@
 
     <!-- MARKET SECTORS OVERVIEW -->
     <div class="sec-head">
-      <h3 class="sec-title">Sectoral Performance</h3>
+      <h2 class="sec-title">Sectoral Performance</h2>
       <span class="sec-meta">Daily Sector Gainers & Losers</span>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-      <div class="box">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+    <div class="sectors-grid">
+      <div class="box sector-box">
+        <div class="sector-row">
           <strong>IT & Software</strong>
           <span class="mono up">▲ +1.84%</span>
         </div>
-        <div style="font-size:12px; color:var(--mute);">Led by CyberSphere Systems & Prism Opto. Strong institutional buying reported.</div>
+        <div class="sector-desc">Led by CyberSphere Systems & Prism Opto. Strong institutional buying reported.</div>
       </div>
-      <div class="box">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <div class="box sector-box">
+        <div class="sector-row">
           <strong>Energy & Power</strong>
           <span class="mono up">▲ +1.12%</span>
         </div>
-        <div style="font-size:12px; color:var(--mute);">Solaris Grid surges on green hydrogen transmission contracts.</div>
+        <div class="sector-desc">Solaris Grid surges on green hydrogen transmission contracts.</div>
       </div>
-      <div class="box">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <div class="box sector-box">
+        <div class="sector-row">
           <strong>Agri & Chemicals</strong>
           <span class="mono dn">▼ -0.45%</span>
         </div>
-        <div style="font-size:12px; color:var(--mute);">Meridian Agro consolidates after recent multi-week rallies.</div>
+        <div class="sector-desc">Meridian Agro consolidates after recent multi-week rallies.</div>
       </div>
-      <div class="box">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <div class="box sector-box">
+        <div class="sector-row">
           <strong>Defense & Aero</strong>
           <span class="mono up">▲ +2.40%</span>
         </div>
-        <div style="font-size:12px; color:var(--mute);">Astra Defense hits record highs on export order book wins.</div>
+        <div class="sector-desc">Astra Defense hits record highs on export order book wins.</div>
       </div>
     </div>
 
   </main>
 
   <!-- FOOTER -->
-  <footer>
-    <div class="wrap">
-      <div class="serif" style="font-size: 24px; font-weight: 700;">BOURSE<i>·</i>DAILY</div>
+  <footer role="contentinfo">
+    <div class="wrap footer-wrap">
+      <div class="serif footer-logo">BOURSE<i>·</i>DAILY</div>
       <p class="legal">Sample data and fictional companies, for demonstration only.</p>
-      <div style="font-size: 11px; color: #9B9886; margin-top: 8px;">© 2026 Bourse Daily Media Inc. All rights reserved. Data delayed by 15 minutes.</div>
+      <div class="footer-copy">© 2026 Bourse Daily Media Inc. All rights reserved. Data delayed by 15 minutes.</div>
     </div>
   </footer>
 
   <!-- BUY / SELL MODAL -->
-  <div id="trade-modal" class="modal-backdrop">
+  <div id="trade-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title">
     <div class="modal">
-      <button id="modal-close" class="modal-close">×</button>
-      <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--mute); margin-bottom: 4px;">Order Execution Desk</div>
-      <h3 id="modal-title" class="serif" style="font-size: 22px; margin-bottom: 16px;">BUY — MRDN</h3>
+      <button id="modal-close" class="modal-close" aria-label="Close modal">×</button>
+      <div class="modal-subtitle">Order Execution Desk</div>
+      <h3 id="modal-title" class="serif modal-heading">BUY — MRDN</h3>
       
-      <div class="btn-group" style="width: 100%; margin-bottom: 16px;">
-        <button id="tab-buy" class="active" style="flex:1;">BUY</button>
-        <button id="tab-sell" style="flex:1;">SELL</button>
+      <div class="btn-group modal-tabs" role="tablist">
+        <button id="tab-buy" class="active" role="tab" aria-selected="true" style="flex:1;">BUY</button>
+        <button id="tab-sell" role="tab" aria-selected="false" style="flex:1;">SELL</button>
       </div>
 
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px; padding: 12px; background: rgba(0,0,0,0.03); border: 1px solid var(--ink);">
+      <div class="modal-price-box">
         <span>Current Market Price:</span>
         <strong id="modal-price" class="mono" style="font-size: 16px;">₹ 1,245.50</strong>
       </div>
 
       <div style="margin-bottom: 16px;">
-        <label style="display:block; font-size: 12px; font-weight: 600; margin-bottom: 6px;">QUANTITY OF SHARES</label>
+        <label for="trade-qty" style="display:block; font-size: 12px; font-weight: 600; margin-bottom: 6px;">QUANTITY OF SHARES</label>
         <input type="number" id="trade-qty" value="10" min="1" class="search-input" style="width: 100%; padding: 10px; font-family:var(--font-mono); font-size:16px;">
       </div>
 
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px; padding-top: 12px; border-top: 1px dotted var(--line-color);">
+      <div class="modal-total-row">
         <span style="font-weight: 600;">Estimated Total:</span>
         <strong id="trade-total" class="mono" style="font-size: 18px; color: var(--ink);">₹ 12,455.00</strong>
       </div>
@@ -217,32 +243,50 @@
   <!-- SCRIPTS -->
   <script src="js/data.js"></script>
   <script src="js/charts.js"></script>
+  <script src="js/insights.js"></script>
+  <script src="js/ai-bridge.js"></script>
   <script src="code/animations.js"></script>
+  <script src="js/app.js"></script>
   <script>
-    // Populate Ticker
-    const tickerTrack = document.getElementById('ticker-track');
-    if (tickerTrack && window.BourseData) {
-      const items = BourseData.companies.map(c => `
-        <div class="ticker-item">
-          <span class="symbol">${c.symbol}</span>
-          <span class="price mono" data-price-symbol="${c.symbol}">₹ ${BourseData.formatINR(c.price)}</span>
-          <span class="chg ${c.change >= 0 ? 'up' : 'dn'}" data-change-symbol="${c.symbol}">${c.change >= 0 ? '▲' : '▼'} ${c.change >= 0 ? '+' : ''}${BourseData.formatINR(c.change)}</span>
-        </div>
-      `).join('');
-      // Duplicate for infinite seamless scroll
-      tickerTrack.innerHTML = items + items;
+    // Populate AI Insights
+    const aiList = document.getElementById('market-ai-insights-list');
+    if (aiList && window.BourseInsights) {
+      const insights = BourseInsights.forMarket();
+      aiList.innerHTML = insights.map(i => `<li class="ai-insight-item"><span>•</span> ${i.text}</li>`).join('');
     }
 
-    // Populate Home stocks table
-    const tbody = document.getElementById('home-stocks-tbody');
-    if (tbody && window.BourseData) {
+    // Populate sector dropdown filter
+    const sectorFilter = document.getElementById('sector-filter');
+    if (sectorFilter && window.BourseData) {
+      const sectors = [...new Set(BourseData.companies.map(c => c.sector))].sort();
+      sectors.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = s;
+        sectorFilter.appendChild(opt);
+      });
+      sectorFilter.addEventListener('change', renderHomeStocks);
+    }
+
+    // Render Home Stocks Table
+    window.renderHomeStocks = function() {
+      const tbody = document.getElementById('home-stocks-tbody');
+      if (!tbody || !window.BourseData) return;
       const watchlist = BourseData.Store.getWatchlist();
-      tbody.innerHTML = BourseData.companies.map(c => {
+      const holdings = BourseData.Store.getHoldings();
+      const selectedSector = sectorFilter ? sectorFilter.value : 'ALL';
+
+      const filtered = BourseData.companies.filter(c => selectedSector === 'ALL' || c.sector === selectedSector);
+
+      tbody.innerHTML = filtered.map(c => {
         const isStarred = watchlist.includes(c.symbol);
+        const holding = holdings.find(h => h.symbol === c.symbol);
+        const hasHolding = holding && holding.qty > 0;
+
         return `
           <tr>
             <td>
-              <button class="star-btn ${isStarred ? 'starred' : ''}" data-symbol="${c.symbol}">${isStarred ? '★' : '☆'}</button>
+              <button class="star-btn ${isStarred ? 'starred' : ''}" data-symbol="${c.symbol}" aria-label="${isStarred ? 'Remove ' + c.symbol + ' from Watchlist' : 'Add ' + c.symbol + ' to Watchlist'}" aria-pressed="${isStarred}">${isStarred ? '★' : '☆'}</button>
             </td>
             <td>
               <a href="stock.html?symbol=${c.symbol}" style="text-decoration:none; color:var(--ink);">
@@ -252,15 +296,20 @@
             <td>${c.sector}</td>
             <td style="text-align: right;" class="mono" data-price-symbol="${c.symbol}">${BourseData.formatINR(c.price)}</td>
             <td style="text-align: right;" data-change-symbol="${c.symbol}">${BourseData.formatChange(c.change, c.changePct)}</td>
-            <td style="text-align: right;" class="mono">₹ ${c.mCap}</td>
-            <td style="text-align: right;" class="mono">${c.pe}</td>
+            <td style="text-align: right;" class="mono">₹ ${BourseData.formatINR(c.mCapNum || 0, 0)} Cr</td>
+            <td style="text-align: right;" class="mono">${c.pe < 0 ? '<span title="Company is loss-making">NM</span>' : c.pe}</td>
             <td style="text-align: center;">
-              <button class="btn" style="padding: 4px 10px; font-size: 11px;" data-trade-action="BUY" data-symbol="${c.symbol}">Trade</button>
+              <div style="display:inline-flex; gap:4px; justify-content:center;">
+                <button class="btn" style="padding: 4px 8px; font-size: 11px;" data-trade-action="BUY" data-symbol="${c.symbol}">Buy</button>
+                ${hasHolding ? `<button class="btn" style="padding: 4px 8px; font-size: 11px;" data-trade-action="SELL" data-symbol="${c.symbol}">Sell</button>` : ''}
+              </div>
             </td>
           </tr>
         `;
       }).join('');
-    }
+    };
+
+    renderHomeStocks();
   </script>
 </body>
 </html>

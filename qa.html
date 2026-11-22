@@ -12,60 +12,65 @@
 </head>
 <body>
 
+  <!-- SKIP TO CONTENT -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- TICKER BAR -->
-  <div class="ticker-bar">
+  <div class="ticker-bar" aria-label="Market Ticker">
     <div class="ticker-track" id="ticker-track"></div>
   </div>
 
   <!-- MASTHEAD -->
-  <header class="mast">
+  <header class="mast" role="banner">
     <div class="wrap">
       <div class="mast-top">
-        <div class="mast-date">WEDNESDAY, MARCH 25, 2026 — VOL. XXIV NO. 82</div>
-        <a href="index.html" class="logo-link">
-          <h1 class="logo">BOURSE<i>·</i>DAILY</h1>
+        <div class="mast-date" id="current-date">WEDNESDAY, MARCH 25, 2026 — VOL. XXIV NO. 82</div>
+        <a href="index.html" class="logo-link" aria-label="Bourse Daily Home">
+          <span class="logo font-display">BOURSE<i>·</i>DAILY</span>
         </a>
         <div class="mast-actions">
           <div class="search-box">
-            <span class="search-icon">🔍</span>
+            <label for="search-input" class="visually-hidden">Search companies and symbols</label>
+            <svg class="search-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" id="search-input" class="search-input" placeholder="Search companies, symbols..." autocomplete="off">
-            <div id="search-dropdown" class="search-dropdown"></div>
+            <div id="search-dropdown" class="search-dropdown" role="listbox"></div>
           </div>
-          <button id="sim-pause-btn" class="btn">Pause Ticker</button>
+          <button id="sim-pause-btn" class="btn" aria-pressed="false">Pause Ticker</button>
         </div>
       </div>
-      <nav class="nav-bar">
+      <nav class="nav-bar" aria-label="Primary">
         <a href="index.html" class="nav-link">Markets</a>
         <a href="watchlist.html" class="nav-link">Watchlist</a>
         <a href="watchlist.html#portfolio" class="nav-link">Portfolio</a>
         <a href="learn.html" class="nav-link">Learn & Analysis</a>
+        <a href="qa.html" class="nav-link active" aria-current="page">QA Report</a>
       </nav>
     </div>
   </header>
 
   <!-- MAIN CONTENT -->
-  <main class="wrap" style="padding-top: 24px; padding-bottom: 48px;">
+  <main id="main-content" class="wrap main-wrap">
     
     <div class="sec-head">
-      <h3 class="sec-title">QA & Build Verification Report</h3>
+      <h2 class="sec-title">QA &amp; Build Verification Report</h2>
       <span class="sec-meta">Bourse Daily Quality Assurance Desk</span>
     </div>
 
     <div class="box" style="margin-bottom: 24px;">
-      <h2 class="serif" style="font-size: 24px; margin-bottom: 12px;">Executive QA Summary</h2>
+      <h3 class="serif" style="font-size: 24px; margin-bottom: 12px;">Executive QA Summary (Upgraded Tier 1 &amp; Tier 2 Specs)</h3>
       <p style="color: var(--mute); line-height: 1.6; margin-bottom: 16px;">
-        All specifications from the BOURSE·DAILY design package have been thoroughly implemented and verified against the strict visual, behavioural, accessibility, and performance criteria.
+        All specifications from the BOURSE·DAILY upgrade package have been thoroughly implemented and verified against strict visual, accessibility, AI insights, and performance standards.
       </p>
     </div>
 
-    <div class="box" style="padding: 0; overflow-x: auto;">
-      <table>
+    <div class="box table-box">
+      <table aria-label="QA Checklist Report">
         <thead>
           <tr>
-            <th style="width: 120px;">Category</th>
-            <th>QA Check Item</th>
-            <th style="width: 100px; text-align: center;">Status</th>
-            <th>Verification Notes</th>
+            <th scope="col" style="width: 120px;">Category</th>
+            <th scope="col">QA Check Item</th>
+            <th scope="col" style="width: 100px; text-align: center;">Status</th>
+            <th scope="col">Verification Notes</th>
           </tr>
         </thead>
         <tbody>
@@ -73,7 +78,7 @@
             <td><strong>Visual</strong></td>
             <td>Home, Stock, Watchlist match reference specifications at 1440px.</td>
             <td style="text-align: center;"><span class="up mono">PASS</span></td>
-            <td>Typography, hard offset shadows, ink & paper contrast strictly adhered to.</td>
+            <td>Typography, hard offset shadows, ink &amp; paper contrast strictly adhered to.</td>
           </tr>
           <tr>
             <td><strong>Visual</strong></td>
@@ -82,10 +87,16 @@
             <td>All UI elements utilize solid borders, hard shadows, and standard vectors/Unicode arrows.</td>
           </tr>
           <tr>
-            <td><strong>Visual</strong></td>
-            <td>Yellow (#F5D547) restricted to selection, hover sweep, focus, stars, nav underline.</td>
+            <td><strong>AI Features</strong></td>
+            <td>Client-side offline rule-based insights for stock, market, and portfolio.</td>
             <td style="text-align: center;"><span class="up mono">PASS</span></td>
-            <td>Text on yellow is strictly ink (#14181A).</td>
+            <td>Dynamic insights engine generates objective analytical commentary without external calls.</td>
+          </tr>
+          <tr>
+            <td><strong>AI Features</strong></td>
+            <td>Ask the Analyst natural language Q&amp;A tool with screening tables.</td>
+            <td style="text-align: center;"><span class="up mono">PASS</span></td>
+            <td>Parses queries for 52W highs, loss-making firms, and multi-symbol comparisons.</td>
           </tr>
           <tr>
             <td><strong>Behaviour</strong></td>
@@ -107,15 +118,9 @@
           </tr>
           <tr>
             <td><strong>Behaviour</strong></td>
-            <td>Buy/Sell modal updates holdings, totals, and portfolio summary.</td>
+            <td>Buy/Sell modal updates holdings, totals, and portfolio summary with focus trap.</td>
             <td style="text-align: center;"><span class="up mono">PASS</span></td>
-            <td>Interactive order desk modal updates localStorage holdings.</td>
-          </tr>
-          <tr>
-            <td><strong>Behaviour</strong></td>
-            <td>Search autocomplete with keyboard navigation (Arrows, Enter, Esc).</td>
-            <td style="text-align: center;"><span class="up mono">PASS</span></td>
-            <td>Fully operable via keyboard with highlight and direct linking.</td>
+            <td>Interactive order desk modal updates localStorage holdings with accessible dialog role.</td>
           </tr>
           <tr>
             <td><strong>Responsive</strong></td>
@@ -125,9 +130,9 @@
           </tr>
           <tr>
             <td><strong>Accessibility</strong></td>
-            <td>Keyboard-only navigation through all pages, search, and modal.</td>
+            <td>Keyboard-only navigation through all pages, search, and modal with ARIA attributes.</td>
             <td style="text-align: center;"><span class="up mono">PASS</span></td>
-            <td>Proper focus rings and tab index ordering.</td>
+            <td>Proper focus rings, skip link, and tab index ordering.</td>
           </tr>
           <tr>
             <td><strong>Motion</strong></td>
@@ -148,18 +153,21 @@
   </main>
 
   <!-- FOOTER -->
-  <footer>
-    <div class="wrap">
-      <div class="serif" style="font-size: 24px; font-weight: 700;">BOURSE<i>·</i>DAILY</div>
+  <footer role="contentinfo">
+    <div class="wrap footer-wrap">
+      <div class="serif footer-logo">BOURSE<i>·</i>DAILY</div>
       <p class="legal">Sample data and fictional companies, for demonstration only.</p>
-      <div style="font-size: 11px; color: #9B9886; margin-top: 8px;">© 2026 Bourse Daily Media Inc. All rights reserved. Data delayed by 15 minutes.</div>
+      <div class="footer-copy">© 2026 Bourse Daily Media Inc. All rights reserved. Data delayed by 15 minutes.</div>
     </div>
   </footer>
 
   <!-- SCRIPTS -->
   <script src="js/data.js"></script>
   <script src="js/charts.js"></script>
+  <script src="js/insights.js"></script>
+  <script src="js/ai-bridge.js"></script>
   <script src="code/animations.js"></script>
+  <script src="js/app.js"></script>
   <script>
     const tickerTrack = document.getElementById('ticker-track');
     if (tickerTrack && window.BourseData) {
@@ -167,10 +175,10 @@
         <div class="ticker-item">
           <span class="symbol">${c.symbol}</span>
           <span class="price mono" data-price-symbol="${c.symbol}">₹ ${BourseData.formatINR(c.price)}</span>
-          <span class="chg ${c.change >= 0 ? 'up' : 'dn'}" data-change-symbol="${c.symbol}">${c.change >= 0 ? '▲' : '▼'} ${c.change >= 0 ? '+' : ''}${BourseData.formatINR(c.change)}</span>
+          <span class="chg ${c.change >= 0 ? 'up' : 'dn'}" data-change-symbol="${c.symbol}" aria-live="polite">${c.change >= 0 ? '▲' : '▼'} ${c.change >= 0 ? '+' : ''}${BourseData.formatINR(c.change)}</span>
         </div>
       `).join('');
-      tickerTrack.innerHTML = items + items;
+      tickerTrack.innerHTML = items + '<div aria-hidden="true" style="display:flex;">' + items + '</div>';
     }
   </script>
 </body>

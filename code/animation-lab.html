@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bourse Daily Animation Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,700;1,500;1,700&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="animations.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper)}
+body{font-family:Inter,sans-serif;color:var(--ink);line-height:1.5}
+.mono{font-family:'IBM Plex Mono','DejaVu Sans Mono',monospace;font-variant-numeric:tabular-nums}
+.serif{font-family:Lora,serif}
+.up{color:var(--gain)}.dn{color:var(--loss)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+.ticker{height:34px;background:var(--ink);color:var(--paper);font-size:12px;display:flex;align-items:center}
+.ticker-track span{padding:0 22px;border-right:1px solid #3a4044;display:inline-flex;gap:9px}
+.ticker .u{color:#5fd29b}.ticker .d{color:#ff8a7e}
+header.mast{border-bottom:1px solid var(--ink);padding:18px 0 0;box-shadow:0 5px 0 var(--paper),0 6px 0 var(--ink)}
+.logo{font:700 34px Lora,serif;letter-spacing:.04em}.logo i{font-style:normal;color:var(--loss)}
+.nav{display:flex;gap:30px;font-weight:600;font-size:14px;margin-top:6px}
+.nav a{padding:10px 0 8px;color:var(--ink);text-decoration:none}
+.kick{font:700 11px Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--loss)}
+h1{font:700 44px/1.05 Lora,serif;margin:10px 0 8px}
+h2{font:700 21px Lora,serif}
+.sec{border-top:3px double var(--ink);padding-top:10px;margin:40px 0 14px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sec small{font:600 10.5px Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.n{display:inline-block;background:var(--ink);color:var(--paper);font:700 12px 'IBM Plex Mono',monospace;padding:2px 7px;margin-right:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+.box{border:1.5px solid var(--ink);background:var(--box);box-shadow:5px 5px 0 var(--ink);padding:16px}
+.box p.how{font-size:12.5px;color:#33383a;margin-top:10px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+table{width:100%;border-collapse:collapse}
+th{font:600 10px Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);text-align:right;padding:6px 0;border-bottom:1px solid var(--ink)}
+th:first-child{text-align:left}
+td{border-bottom:1px dotted #9b9886;font-size:13px;text-align:right;height:41px}
+td:first-child{text-align:left;padding-left:6px}
+.nm{font-weight:600;display:block;line-height:1.15}.tk{font-size:10.5px;color:var(--mute)}
+.chart{height:318px;border:1.5px solid var(--ink);background:var(--box);margin-top:10px}
+.chart svg{display:block}
+.field{margin-top:10px;max-width:280px}
+.suggest{list-style:none;border:1.5px solid var(--ink);background:var(--box);box-shadow:3px 3px 0 var(--ink);margin-top:6px;max-width:280px}
+.suggest li{padding:8px 10px;font-size:13px;border-bottom:1px dotted #9b9886;cursor:pointer}
+.suggest li:hover{background:var(--hi)}
+.range{position:relative;height:10px;margin:22px 0 8px;background:var(--soft);border:1.5px solid var(--ink)}
+.range-fill{position:absolute;left:0;top:0;bottom:0;width:72%;background:var(--ink)}
+.range-mark{position:absolute;left:72%;top:-7px;width:3px;height:22px;background:var(--loss)}
+.donut-wrap{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.live-bar{display:flex;justify-content:space-between;align-items:center}
+.toast-note{font-size:12px;color:var(--mute);margin-top:8px}
+footer{margin:50px 0 30px;padding-top:10px;border-top:1px solid #b8b4a2;font-size:11px;color:var(--mute);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+</style>
+</head>
+<body>
+
+<div class="ticker mono" id="ticker"><div class="ticker-track" id="tape"></div></div>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="logo">BOURSE<i>·</i>DAILY</div>
+    <nav class="nav" id="nav" aria-label="Main"><a class="on" href="#">Markets</a><a href="#">Watchlist</a><a href="#">Portfolio</a><a href="#">Learn</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div style="margin-top:30px" data-reveal-load>
+    <div class="kick">Animation lab · <span class="live" id="liveTag"><i></i>LIVE</span></div>
+    <h1 id="headline">Every motion, one page.</h1>
+    <p style="max-width:620px;color:#33383a">Hover, click, scroll and use the keyboard. Each card is numbered to match <b>docs/03-animation-spec.md</b>. Turn on "reduce motion" in your OS to check the reduced-motion states.</p>
+  </div>
+
+  <!-- ====== STRINGS ====== -->
+  <div class="sec" data-reveal><h2>Text and string animation</h2><small>#16 · strings</small></div>
+  <div class="grid">
+    <div class="box" data-reveal>
+      <span class="n">16</span><b>Masked line reveal</b>
+      <div class="serif" id="maskDemo" style="font-size:30px;font-weight:700;line-height:1.1;margin-top:12px"></div>
+      <div class="row"><button class="btn k" id="maskBtn">Replay</button></div>
+      <p class="how">Each line sits in an overflow-hidden mask and slides up from 105%, 110ms apart. Lines are passed as an array so wrapping never changes.</p>
+    </div>
+    <div class="box" data-reveal>
+      <span class="n">S1</span><b>Character stagger</b>
+      <div class="serif" id="charDemo" style="font-size:30px;font-weight:700;margin-top:12px">Banks lead the rally</div>
+      <div class="row"><button class="btn k" id="charBtn">Replay</button></div>
+      <p class="how">Each character rises 0.5em and fades in, 28ms apart. aria-label keeps the full sentence for screen readers.</p>
+    </div>
+    <div class="box" data-reveal>
+      <span class="n">S2</span><b>Scramble to symbol</b>
+      <div class="mono" id="scrDemo" style="font-size:34px;font-weight:700;margin-top:12px">MRDN</div>
+      <div class="row"><button class="btn k" data-scr="MRDN">MRDN</button><button class="btn k" data-scr="KVPW">KVPW</button><button class="btn k" data-scr="ATLB">ATLB</button></div>
+      <p class="how">Letters lock left to right out of random glyphs. Used when a stock page loads and when the live ticker swaps a symbol.</p>
+    </div>
+    <div class="box" data-reveal>
+      <span class="n">S3</span><b>Typewriter + caret</b>
+      <div class="mono" id="typeDemo" style="font-size:17px;margin-top:12px;min-height:28px"></div>
+      <div class="row"><button class="btn k" id="typeBtn">Replay</button></div>
+      <p class="how">35 to 65ms per character, random jitter so it feels typed. The caret blinks with steps(1), a hard blink like a terminal.</p>
+    </div>
+    <div class="box" data-reveal>
+      <span class="n">4</span><b>Number count-up (Indian format)</b>
+      <div class="mono" style="font-size:34px;font-weight:700;margin-top:12px" id="cuDemo" data-count="482300" data-decimals="0" data-prefix="₹">₹0</div>
+      <div class="mono up" style="font-size:14px" data-count="0.8" data-decimals="2" data-prefix="▲ " data-suffix="% today" id="cuDemo2">▲ 0.00% today</div>
+      <div class="row"><button class="btn k" id="cuBtn">Replay</button></div>
+      <p class="how">900ms, ease-out cubic, requestAnimationFrame. Lakh grouping (4,82,300) is done by toLocaleString('en-IN'), tabular digits stop the width jittering.</p>
+    </div>
+  </div>
+
+  <!-- ====== BUTTONS ====== -->
+  <div class="sec" data-reveal><h2>Buttons, stars and inputs</h2><small>#10 · #11</small></div>
+  <div class="grid">
+    <div class="box" data-reveal>
+      <span class="n">10</span><b>Hard-shadow press</b>
+      <div class="row" style="margin-top:16px"><button class="btn k">Sign in</button><button class="btn g">Buy</button><button class="btn o">Sell</button></div>
+      <p class="how">Hover lifts 1px (shadow grows). Press moves 3px,3px and the shadow shrinks to zero, so the button sits flat on the paper like a stamp.</p>
+    </div>
+    <div class="box" data-reveal>
+      <span class="n">10</span><b>Add to Watchlist, then Added</b>
+      <div class="row" style="margin-top:16px">
+        <button class="btn y" id="addBtn" type="button">
+          <svg class="star-i" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6.9 7.5.7-5.7 5 1.8 7.4L12 18l-6.6 4 1.8-7.4-5.7-5 7.5-.7z" fill="#14181A"/></svg>
+          <span class="lbl">Add to Watchlist</span>
+          <svg class="check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#14181A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M4 12.5l5 5L20 6.5"/></svg>
+        </button>
+      </div>
+      <p class="how">The star spins 144° while scaling to 1.35 and back. The label swaps to "Added" and an SVG tick draws itself (stroke-dashoffset). No emoji.</p>
+    </div>
+    <div class="box" data-reveal>
+      <span class="n">11</span><b>Star toggle + row collapse</b>
+      <table style="margin-top:8px"><tbody id="starTable"></tbody></table>
+      <p class="how">Pop on toggle. Un-starring a row fades it left, then collapses its height so the rows below slide up, then the count updates: <b id="starCount" class="mono">3</b> in list.</p>
+    </div>
+    <div class="box" data-reveal>
+      <span class="n">I1</span><b>Input underline + search dropdown</b>
+      <div class="field"><input id="searchIn" type="text" placeholder="Search stocks, e.g. MRDN" aria-label="Search stocks" autocomplete="off"></div>
+      <ul class="suggest" id="sug" hidden></ul>
+      <p class="how">A 3px yellow underline draws from the left on focus. Suggestions drop in 25ms apart, each 4px up to rest.</p>
+    </div>
+  </div>
+
+  <!-- ====== CHARTS ====== -->
+  <div class="sec" data-reveal><h2>Charts</h2><small>#5 · #6 · #13</small></div>
+  <div data-reveal>
+    <div class="live-bar">
+      <div><span class="serif" style="font-weight:700;font-size:17px">Nifty 50 intraday</span> <span class="mono" style="font-size:11px;color:var(--mute);margin-left:8px">hover the chart, or Tab to it and use arrows</span></div>
+      <div class="row" style="margin:0"><div class="tabs" id="lineTabs"><button aria-selected="true">1D</button><button>1W</button><button>1M</button><button>1Y</button></div><button class="btn" id="replayLine" style="height:32px">Replay draw</button></div>
+    </div>
+    <div class="chart" id="lineChart" aria-label="Nifty 50 line chart"></div>
+    <p class="toast-note"><b>#5</b> line draws left to right (1.2s), area fades in, end dot pops then pulses, callout fades last. <b>#6</b> crosshair + snapped dot + hard-shadow tooltip. Tabs morph the line in 500ms and the dark slider glides between tabs.</p>
+  </div>
+
+  <div data-reveal style="margin-top:28px">
+    <div class="live-bar"><span class="serif" style="font-weight:700;font-size:17px">Candlesticks and volume</span><button class="btn" id="replayCandle" style="height:32px">Replay grow-in</button></div>
+    <div class="chart" id="candleChart" style="height:392px" aria-label="Candlestick chart"></div>
+    <p class="toast-note"><b>#5</b> each candle scales from its own midpoint, 12ms after the previous; volume bars rise from the baseline.</p>
+  </div>
+
+  <div class="grid" style="margin-top:28px">
+    <div class="box" data-reveal>
+      <span class="n">13</span><b>52-week range bar</b>
+      <div class="range"><div class="range-fill"></div><div class="range-mark"></div></div>
+      <div class="mono" style="display:flex;justify-content:space-between;font-size:12px"><span>₹ 842.10</span><span>₹ 1,402.80</span></div>
+      <div class="row"><button class="btn k" id="rangeBtn">Replay</button></div>
+      <p class="how">The ink bar fills from the left (900ms), then the red marker drops 16px with a small overshoot.</p>
+    </div>
+    <div class="box" data-reveal>
+      <span class="n">12</span><b>Donut sweep + hover link</b>
+      <div class="donut-wrap"><svg id="donut" class="donut" width="168" height="168" viewBox="0 0 168 168" data-total="5" role="img" aria-label="Holdings by sector"></svg><div id="legend" style="flex:1;min-width:150px;font-size:13px"></div></div>
+      <div class="row"><button class="btn k" id="donutBtn">Replay</button></div>
+      <p class="how">Segments grow clockwise one after another (160ms apart). Hover a segment or a legend row: the segment pushes out, the row lights up yellow, the centre shows its value.</p>
+    </div>
+  </div>
+
+  <!-- ====== TABLE + LIVE ====== -->
+  <div class="sec" data-reveal><h2>Tables and live prices</h2><small>#7 · #8 · #9</small></div>
+  <div class="box" data-reveal>
+    <div class="live-bar"><span class="serif" style="font-weight:700;font-size:17px">Top Gainers</span>
+      <div class="row" style="margin:0"><span class="live" id="liveTag2"><i></i>LIVE</span><button class="btn" id="liveBtn" style="height:32px" aria-pressed="true">Pause live</button></div></div>
+    <table style="margin-top:8px"><thead><tr><th>Company</th><th>Price ₹</th><th>Chg %</th><th style="width:90px">Trend</th></tr></thead><tbody id="gainTable"></tbody></table>
+    <p class="toast-note"><b>#9</b> hover a row: a yellow highlighter bar sweeps in (250ms). <b>#7</b> sparklines draw once when visible and thicken on row hover. <b>#8</b> every 2 to 3 seconds a few prices tick; the number flashes green or red for 600ms and the arrow flips if the sign changes.</p>
+  </div>
+
+  <!-- ====== MODAL ====== -->
+  <div class="sec" data-reveal><h2>Modal and page transition</h2><small>#14 · #15</small></div>
+  <div class="grid">
+    <div class="box" data-reveal>
+      <span class="n">15</span><b>Buy modal</b>
+      <div class="row" style="margin-top:14px"><button class="btn g" id="openModal">Buy MRDN</button></div>
+      <p class="how">Backdrop fades in, box scales from 0.96 and rises 8px. Esc, backdrop click or Cancel closes. Tab stays trapped inside; focus returns to this button.</p>
+    </div>
+    <div class="box" data-reveal>
+      <span class="n">14</span><b>Page transition</b>
+      <p class="how" style="margin-top:12px">Internal links fade and slide out in 150ms and the next page animates in 300ms. Chrome and Safari use the View Transitions API; other browsers use the fade-out fallback. Try the nav links above (they stay on this page here).</p>
+    </div>
+  </div>
+
+
+  <div class="sec" data-reveal><h2>Feedback details</h2><small>F4 · S6 · S7</small></div>
+  <div class="grid">
+    <div class="box" data-reveal><span class="n">F4</span><b>Toast + Undo</b>
+      <div class="row"><button class="btn k" id="toastBtn">Trade confirmed</button><button class="btn o" id="undoBtn">Removed (Undo)</button></div>
+      <p class="how">Slides up 12px, stays 3s (5s with Undo), hard yellow shadow, role=status.</p></div>
+    <div class="box" data-reveal><span class="n">S6</span><b>Price digit roll</b>
+      <div class="mono" id="rollDemo" style="font-size:38px;font-weight:700;margin-top:12px">₹1,248.60</div>
+      <div class="row"><button class="btn k" id="rollBtn">Tick price</button></div>
+      <p class="how">Only changed digits slide up (200ms), the last digit first, like an odometer.</p></div>
+    <div class="box" data-reveal><span class="n">S7</span><b>Underline draw</b>
+      <p style="margin-top:12px;font:700 17px Lora,serif"><a href="#" class="ulink" onclick="return false">Analysts raise target to ₹1,420</a></p>
+      <p class="how">Underline enters from the left on hover and exits to the right.</p></div>
+  </div>
+
+  <footer><span>Bourse·Daily animation lab · sample data only</span><span>All numbers and company names are fictional</span></footer>
+</main>
+
+<div class="backdrop" id="backdrop" aria-hidden="false">
+  <div class="modal" aria-labelledby="mTitle">
+    <div class="kick">Order ticket · sample</div>
+    <h2 id="mTitle" style="margin:6px 0 12px">Buy Meridian Steel (MRDN)</h2>
+    <label for="qty" style="font:600 10.5px Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)">Quantity</label>
+    <div class="field"><input id="qty" type="number" min="1" value="10" inputmode="numeric"></div>
+    <div class="mono" style="display:flex;justify-content:space-between;margin:16px 0 4px"><span style="color:var(--mute)">Price</span><span>₹1,248.60</span></div>
+    <div class="mono" style="display:flex;justify-content:space-between;font-weight:700;border-top:1px dashed var(--mute);padding-top:8px"><span>Estimated cost</span><span id="est">₹12,486.00</span></div>
+    <div class="row" style="margin-top:20px;justify-content:flex-end"><button class="btn o" id="mCancel">Cancel</button><button class="btn g" id="mConfirm">Confirm</button></div>
+  </div>
+</div>
+
+<script src="charts.js"></script>
+<script src="animations.js"></script>
+<script>
+(function () {
+  var $ = BD.$, $$ = BD.$$;
+
+  /* ticker */
+  var tk = [['NIFTY 50','24,318.40','▲0.42%',1],['SENSEX','80,112.75','▲0.38%',1],['BANK NIFTY','52,870.10','▲0.91%',1],['NIFTY IT','37,904.55','▼0.15%',0],['MRDN','1,248.60','▲1.81%',1],['KVPW','412.35','▲3.20%',1],['NRST','286.90','▼2.64%',0],['ATLB','1,102.15','▲0.77%',1],['USD/INR','83.42','▼0.04%',0],['GOLD','₹71,880','▲0.22%',1]];
+  $('#tape').innerHTML = tk.map(function (x) { return '<span><b>' + x[0] + '</b>' + x[1] + '<em class="' + (x[3] ? 'u' : 'd') + '" style="font-style:normal">' + x[2] + '</em></span>'; }).join('');
+  BD.ticker($('#ticker'));
+
+  BD.navBar($('#nav'));
+  $$('#nav a').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
+  BD.init();
+
+  /* strings */
+  function mask() { var h = $('#maskDemo'); h.classList.remove('is-in'); BD.maskLines(h, ['Markets close higher', 'as banks lead', 'the rally']); void h.offsetWidth; requestAnimationFrame(function () { requestAnimationFrame(function () { h.classList.add('is-in'); }); }); }
+  mask(); $('#maskBtn').onclick = mask;
+  var hl = $('#headline'); BD.maskLines(hl, ['Every motion, one page.']); setTimeout(function () { hl.classList.add('is-in'); }, 100);
+  function chars() { var c = $('#charDemo'); c.classList.remove('is-in'); BD.splitChars(c.firstChild ? Object.assign(c, { textContent: 'Banks lead the rally' }) : c); requestAnimationFrame(function () { requestAnimationFrame(function () { c.classList.add('is-in'); }); }); }
+  chars(); $('#charBtn').onclick = chars;
+  $$('[data-scr]').forEach(function (b) { b.onclick = function () { BD.scramble($('#scrDemo'), b.getAttribute('data-scr')); }; });
+  function type() { BD.typewriter($('#typeDemo'), 'NIFTY 50 closes at 24,318.40'); } type(); $('#typeBtn').onclick = type;
+  $('#cuBtn').onclick = function () { ['cuDemo', 'cuDemo2'].forEach(function (id) { var e = document.getElementById(id); e._counted = false; BD.countUp(e); }); };
+
+  /* buttons */
+  var add = $('#addBtn'); BD.addButton(add);
+  add.addEventListener('click', function () { $('.check', add).style.display = add.classList.contains('is-added') ? '' : 'none'; });
+  var starRows = [['Meridian Steel','MRDN',1248.60],['Kaveri Power','KVPW',412.35],['Atlas Bank','ATLB',1102.15]];
+  $('#starTable').innerHTML = starRows.map(function (r) { return '<tr><td style="width:34px;padding-left:0"><button class="star" aria-pressed="true" aria-label="Remove ' + r[0] + ' from watchlist"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2l3 6.9 7.5.7-5.7 5 1.8 7.4L12 18l-6.6 4 1.8-7.4-5.7-5 7.5-.7z"/></svg></button></td><td><span class="nm">' + r[0] + '</span><span class="tk mono">' + r[1] + '</span></td><td class="mono" style="padding-right:6px">' + BD.fmt(r[2]) + '</td></tr>'; }).join('');
+  $$('#starTable .star').forEach(function (b) { BD.star(b, function (on) { if (!on) { var tr = b.closest('tr'); setTimeout(function () { BD.removeRow(tr, function () { $('#starCount').textContent = $$('#starTable tr').length; }); }, 350); } }); });
+
+  /* search */
+  var names = [['Meridian Steel','MRDN'],['Kaveri Power','KVPW'],['Atlas Bank','ATLB'],['Northstar Telecom','NRST'],['Zenith Finserv','ZNFN'],['Crown Auto','CRWN'],['Pinecrest Foods','PNCF'],['Lotus Cements','LTCM']];
+  $('#searchIn').addEventListener('input', function (e) {
+    var q = e.target.value.trim().toLowerCase(), u = $('#sug');
+    var m = q ? names.filter(function (n) { return n[0].toLowerCase().indexOf(q) > -1 || n[1].toLowerCase().indexOf(q) > -1; }).slice(0, 5) : [];
+    u.hidden = !m.length; u.innerHTML = m.map(function (n, i) { return '<li style="--i:' + i + '"><b>' + n[1] + '</b> &nbsp;' + n[0] + '</li>'; }).join('');
+  });
+
+  /* line chart */
+  var lineEl = $('#lineChart'), W = Math.max(520, lineEl.clientWidth || 760);
+  var ranges = {
+    '1D': { n: 76, s: 7, a: 24216.55, b: 24318.40, v: 60, x: ['09:15','10:30','11:45','13:00','14:15','15:30'], l: function (i) { return 'Bar ' + (i + 1) + ' · 5 min'; }, c: [{ i: 44, text: '11:30 · policy remarks' }] },
+    '1W': { n: 60, s: 11, a: 23890, b: 24318.40, v: 150, x: ['Mon','Tue','Wed','Thu','Fri'], l: function (i) { return 'Hour ' + (i + 1); }, c: [{ i: 38, text: 'Wed · rate decision' }] },
+    '1M': { n: 44, s: 15, a: 23420, b: 24318.40, v: 260, x: ['26 Oct','02 Nov','09 Nov','16 Nov','20 Nov'], l: function (i) { return 'Day ' + (i + 1); }, c: [{ i: 28, text: 'Results season starts' }] },
+    '1Y': { n: 90, s: 21, a: 21200, b: 24318.40, v: 520, x: ['Dec','Mar','Jun','Sep','Nov'], l: function (i) { return 'Week ' + (i + 1); }, c: [{ i: 55, text: 'Budget rally' }] }
+  };
+  var cur = '1D', lineCtl;
+  function build(k) {
+    var r = ranges[k], data = BD.series(r.s, r.n, r.a, r.b, r.v);
+    return BD.lineChart({ w: W, h: 318, data: data, xlabels: r.x, labelAt: r.l, callouts: r.c });
+  }
+  function mountLine(k) {
+    var res = build(k); lineEl.innerHTML = res.svg; lineEl.classList.remove('is-in', 'is-hover');
+    var p = $('.main-line', lineEl); BD.prepDraw(p);
+    lineCtl = BD.crosshair(lineEl, res.pts, { top: 22, bottom: 284 });
+    void lineEl.offsetWidth; requestAnimationFrame(function () { lineEl.classList.add('is-in'); });
+    return res;
+  }
+  var lineRes = mountLine('1D');
+  $('#replayLine').onclick = function () { lineRes = mountLine(cur); };
+  BD.tabs($('#lineTabs'), function (k) {
+    var next = build(k), oldP = $('.main-line', lineEl);
+    // morph the stroke from the old shape to the new one (500ms), then swap in the full chart
+    var from = lineRes.pts.map(function (p) { return [p.x, p.y]; }), to = next.pts.map(function (p) { return [p.x, p.y]; });
+    oldP.classList.remove('draw-line'); oldP.style.strokeDasharray = 'none'; oldP.style.strokeDashoffset = 0;
+    BD.morph(oldP, from, to, 500, function (arr) { return 'M' + arr.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' L'); });
+    setTimeout(function () {
+      cur = k; lineRes = next; lineEl.innerHTML = next.svg; lineEl.classList.add('is-in');
+      $$('.draw-line', lineEl).forEach(function (e) { e.style.strokeDashoffset = 0; e.style.transition = 'none'; });
+      $$('.fade-after,.end-dot', lineEl).forEach(function (e) { e.style.transition = 'none'; });
+      lineCtl = BD.crosshair(lineEl, next.pts, { top: 22, bottom: 284 });
+    }, BD.reduced() ? 0 : 520);
+  });
+
+  /* candles */
+  var candleEl = $('#candleChart');
+  function mountCandles() {
+    var res = BD.candles({ w: Math.max(520, candleEl.clientWidth || 820), h: 392, n: 56, seed: 42, start: 1010, end: 1248.6 });
+    candleEl.innerHTML = res.svg; candleEl.classList.remove('is-in', 'is-hover');
+    BD.crosshair(candleEl, res.pts, { top: 18, bottom: 362 });
+    void candleEl.offsetWidth; requestAnimationFrame(function () { candleEl.classList.add('is-in'); });
+  }
+  $('#replayCandle').onclick = mountCandles;
+
+  /* range + donut */
+  $('#rangeBtn').onclick = function () { var b = $('.box [class*=range]').closest('.box'); b.classList.remove('is-in'); void b.offsetWidth; requestAnimationFrame(function () { requestAnimationFrame(function () { b.classList.add('is-in'); }); }); };
+  var sectors = [{name:'Banking',pct:34,color:'#14181A'},{name:'Metals & Steel',pct:22,color:'#0F7B4F'},{name:'Energy',pct:18,color:'#F5D547'},{name:'Pharma',pct:14,color:'#9b9886'},{name:'Auto & others',pct:12,color:'#E4E0D2'}];
+  function mountDonut() {
+    var svg = $('#donut'), lg = $('#legend'); svg.innerHTML = BD.donutSvg(sectors); lg.innerHTML = BD.donutLegend(sectors);
+    BD.donut(svg, lg, $('#dn-num'), $('#dn-lbl'));
+  }
+  mountDonut(); $('#donutBtn').onclick = mountDonut;
+
+  /* table with live prices */
+  var gain = [['Kaveri Power','KVPW',412.35,3.20,11],['Meridian Steel','MRDN',1248.60,1.81,21],['Lotus Cements','LTCM',903.10,1.64,31],['Himalaya Agro','HMAG',217.45,1.42,41],['Sundial Textiles','SNDL',158.20,1.18,51]];
+  $('#gainTable').innerHTML = gain.map(function (d, i) {
+    var base = d[2] / (1 + d[3] / 100);
+    return '<tr class="row-link" data-row tabindex="0"><td><span class="nm">' + d[0] + '</span><span class="tk mono">' + d[1] + '</span></td><td class="mono"><span data-live data-price="' + d[2] + '" data-base="' + base.toFixed(2) + '">' + BD.fmt(d[2]) + '</span></td><td class="mono up" data-chg style="font-weight:600"><span class="arrow">▲</span> <span class="val">' + d[3].toFixed(2) + '</span></td><td style="text-align:right;padding-right:6px">' + BD.spark(d[4] + i, true) + '</td></tr>';
+  }).join('');
+  BD.rowBars(document); window.addEventListener('resize', function () { BD.rowBars(document); });
+  var live = BD.live(); var lb = $('#liveBtn');
+  lb.onclick = function () { var on = live.toggle(); lb.textContent = on ? 'Pause live' : 'Resume live'; lb.setAttribute('aria-pressed', on); ['liveTag', 'liveTag2'].forEach(function (id) { document.getElementById(id).classList.toggle('is-off', !on); }); };
+
+  /* modal */
+  var m = BD.modal($('#backdrop')); $('#backdrop').classList.remove('is-open');
+  $('#openModal').onclick = m.open; $('#mCancel').onclick = m.close; $('#mConfirm').onclick = m.close;
+  $('#qty').addEventListener('input', function (e) { $('#est').textContent = BD.inr(Math.max(0, +e.target.value || 0) * 1248.6, 2); });
+
+
+  BD.progress();
+  $('#toastBtn').onclick=function(){BD.toast('Bought 10 MRDN at ₹1,248.60');};
+  $('#undoBtn').onclick=function(){BD.toast('Removed Kaveri Power from watchlist',function(){BD.toast('Restored Kaveri Power');});};
+  var rp=1248.6; BD.roll($('#rollDemo'),'₹'+BD.fmt(rp));
+  $('#rollBtn').onclick=function(){rp+=(Math.random()-.4)*14; BD.roll($('#rollDemo'),'₹'+BD.fmt(rp));};
+
+  /* start chart + candles when first scrolled into view (draw-ins should be seen) */
+  var started = false;
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (l, io) { l.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); mountLine(cur); mountCandles(); } }); }, { threshold: .25 }).observe(lineEl);
+  } else { mountCandles(); }
+})();
+</script>
+</body>
+</html>

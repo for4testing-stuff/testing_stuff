@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOURSE·DAILY — Learn & Financial Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="code/animations.css">
+</head>
+<body>
+
+  <!-- TICKER BAR -->
+  <div class="ticker-bar">
+    <div class="ticker-track" id="ticker-track"></div>
+  </div>
+
+  <!-- MASTHEAD -->
+  <header class="mast">
+    <div class="wrap">
+      <div class="mast-top">
+        <div class="mast-date">WEDNESDAY, MARCH 25, 2026 — VOL. XXIV NO. 82</div>
+        <a href="index.html" class="logo-link">
+          <h1 class="logo">BOURSE<i>·</i>DAILY</h1>
+        </a>
+        <div class="mast-actions">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="search-input" class="search-input" placeholder="Search companies, symbols..." autocomplete="off">
+            <div id="search-dropdown" class="search-dropdown"></div>
+          </div>
+          <button id="sim-pause-btn" class="btn">Pause Ticker</button>
+        </div>
+      </div>
+      <nav class="nav-bar">
+        <a href="index.html" class="nav-link">Markets</a>
+        <a href="watchlist.html" class="nav-link">Watchlist</a>
+        <a href="watchlist.html#portfolio" class="nav-link">Portfolio</a>
+        <a href="learn.html" class="nav-link active">Learn & Analysis</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="wrap" style="padding-top: 24px; padding-bottom: 48px;">
+    
+    <div class="sec-head">
+      <h3 class="sec-title">Investor Education & Market Primers</h3>
+      <span class="sec-meta">Bourse Academy Desk</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 36px;">
+      
+      <!-- Article 1 -->
+      <div class="box" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--mute); margin-bottom:6px;">FUNDAMENTAL ANALYSIS</div>
+          <h2 class="serif" style="font-size: 22px; line-height: 1.25; margin-bottom: 12px;">Decoding the Price-to-Earnings (P/E) Ratio in Indian Equities</h2>
+          <p style="font-size: 13.5px; color: var(--mute); line-height: 1.6; margin-bottom: 16px;">
+            The P/E ratio is the most widely used valuation metric. Discover how to evaluate whether a company is overvalued or trading at an attractive discount relative to its earnings growth rate (PEG).
+          </p>
+        </div>
+        <div style="border-top:1px dotted var(--line-color); padding-top:12px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:11.5px; color:var(--mute);">6 min read</span>
+          <button class="btn" style="padding: 6px 12px; font-size: 12px;">Read Primer</button>
+        </div>
+      </div>
+
+      <!-- Article 2 -->
+      <div class="box" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--mute); margin-bottom:6px;">MARKET MECHANICS</div>
+          <h2 class="serif" style="font-size: 22px; line-height: 1.25; margin-bottom: 12px;">Understanding Level 2 Market Depth (Bid & Ask Queues)</h2>
+          <p style="font-size: 13.5px; color: var(--mute); line-height: 1.6; margin-bottom: 16px;">
+            Behind every quoted stock price lies an active order book of buyers and sellers. Learn how analyzing bid-ask spreads and cumulative volume helps identify immediate support and resistance levels.
+          </p>
+        </div>
+        <div style="border-top:1px dotted var(--line-color); padding-top:12px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:11.5px; color:var(--mute);">8 min read</span>
+          <button class="btn" style="padding: 6px 12px; font-size: 12px;">Read Primer</button>
+        </div>
+      </div>
+
+      <!-- Article 3 -->
+      <div class="box" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--mute); margin-bottom:6px;">RISK MANAGEMENT</div>
+          <h2 class="serif" style="font-size: 22px; line-height: 1.25; margin-bottom: 12px;">Portfolio Diversification Across Cyclical and Defensive Sectors</h2>
+          <p style="font-size: 13.5px; color: var(--mute); line-height: 1.6; margin-bottom: 16px;">
+            Why sector allocation matters during macroeconomic shifts. Balancing high-growth technology and infrastructure stocks with defensive FMCG and pharmaceutical holdings.
+          </p>
+        </div>
+        <div style="border-top:1px dotted var(--line-color); padding-top:12px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:11.5px; color:var(--mute);">5 min read</span>
+          <button class="btn" style="padding: 6px 12px; font-size: 12px;">Read Primer</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- GLOSSARY SECTION -->
+    <div class="sec-head">
+      <h3 class="sec-title">Financial Glossary & Terminology</h3>
+      <span class="sec-meta">A to Z Reference</span>
+    </div>
+
+    <div class="box">
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; font-size: 13.5px;">
+        <div style="border-bottom:1px dotted var(--line-color); padding-bottom:12px;">
+          <strong class="serif" style="font-size:15px; display:block; margin-bottom:4px;">Market Capitalization (M-Cap)</strong>
+          <span style="color:var(--mute);">The total dollar/rupee market value of a company's outstanding shares, calculated by multiplying shares outstanding by the current share price.</span>
+        </div>
+        <div style="border-bottom:1px dotted var(--line-color); padding-bottom:12px;">
+          <strong class="serif" style="font-size:15px; display:block; margin-bottom:4px;">Liquidity & Turnover</strong>
+          <span style="color:var(--mute);">Turnover measures the total monetary value of shares traded during a specific session, indicating market depth and ease of execution.</span>
+        </div>
+        <div style="border-bottom:1px dotted var(--line-color); padding-bottom:12px;">
+          <strong class="serif" style="font-size:15px; display:block; margin-bottom:4px;">Bull vs Bear Markets</strong>
+          <span style="color:var(--mute);">A bull market denotes rising asset prices and widespread economic confidence, whereas a bear market reflects declining valuations of 20% or more.</span>
+        </div>
+        <div style="border-bottom:1px dotted var(--line-color); padding-bottom:12px;">
+          <strong class="serif" style="font-size:15px; display:block; margin-bottom:4px;">Dividend Yield</strong>
+          <span style="color:var(--mute);">A financial ratio that shows how much a company pays out in dividends each year relative to its stock price.</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="serif" style="font-size: 24px; font-weight: 700;">BOURSE<i>·</i>DAILY</div>
+      <p class="legal">Sample data and fictional companies, for demonstration only.</p>
+      <div style="font-size: 11px; color: #9B9886; margin-top: 8px;">© 2026 Bourse Daily Media Inc. All rights reserved. Data delayed by 15 minutes.</div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="js/data.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="code/animations.js"></script>
+  <script>
+    // Populate Ticker
+    const tickerTrack = document.getElementById('ticker-track');
+    if (tickerTrack && window.BourseData) {
+      const items = BourseData.companies.map(c => `
+        <div class="ticker-item">
+          <span class="symbol">${c.symbol}</span>
+          <span class="price mono" data-price-symbol="${c.symbol}">₹ ${BourseData.formatINR(c.price)}</span>
+          <span class="chg ${c.change >= 0 ? 'up' : 'dn'}" data-change-symbol="${c.symbol}">${c.change >= 0 ? '▲' : '▼'} ${c.change >= 0 ? '+' : ''}${BourseData.formatINR(c.change)}</span>
+        </div>
+      `).join('');
+      tickerTrack.innerHTML = items + items;
+    }
+  </script>
+</body>
+</html>

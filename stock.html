@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">BOURSE·DAILY — Stock Detail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="code/animations.css">
+</head>
+<body>
+
+  <!-- TICKER BAR -->
+  <div class="ticker-bar">
+    <div class="ticker-track" id="ticker-track"></div>
+  </div>
+
+  <!-- MASTHEAD -->
+  <header class="mast">
+    <div class="wrap">
+      <div class="mast-top">
+        <div class="mast-date">WEDNESDAY, MARCH 25, 2026 — VOL. XXIV NO. 82</div>
+        <a href="index.html" class="logo-link">
+          <h1 class="logo">BOURSE<i>·</i>DAILY</h1>
+        </a>
+        <div class="mast-actions">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="search-input" class="search-input" placeholder="Search companies, symbols..." autocomplete="off">
+            <div id="search-dropdown" class="search-dropdown"></div>
+          </div>
+          <button id="sim-pause-btn" class="btn">Pause Ticker</button>
+        </div>
+      </div>
+      <nav class="nav-bar">
+        <a href="index.html" class="nav-link">Markets</a>
+        <a href="watchlist.html" class="nav-link">Watchlist</a>
+        <a href="watchlist.html#portfolio" class="nav-link">Portfolio</a>
+        <a href="learn.html" class="nav-link">Learn & Analysis</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="wrap" style="padding-top: 24px; padding-bottom: 48px;">
+    
+    <!-- STOCK HEADER -->
+    <div class="box stock-header-grid">
+      <div>
+        <div style="display:flex; align-items:center; gap: 12px; margin-bottom: 6px;">
+          <button id="stock-star-btn" class="star-btn" style="font-size: 24px;">☆</button>
+          <span id="stock-symbol-badge" class="mono" style="background:var(--ink); color:var(--paper); padding: 3px 8px; font-weight:700; font-size:13px;">MRDN</span>
+          <span id="stock-sector-badge" style="font-size:12px; font-weight:600; text-transform:uppercase; color:var(--mute);">Agri & Chemicals</span>
+        </div>
+        <h2 id="stock-name" class="serif" style="font-size: 32px; line-height: 1.1; margin-bottom: 8px;">Meridian Agro & Chemicals Ltd</h2>
+        <p id="stock-desc" style="color: var(--mute); font-size: 13.5px; max-width: 800px; line-height: 1.5;"></p>
+      </div>
+      <div style="text-align: right; display:flex; flex-direction:column; align-items:flex-end; gap: 8px;">
+        <div id="stock-price" class="mono" style="font-size: 36px; font-weight: 700;" data-price-symbol="MRDN">1,245.50</div>
+        <div id="stock-change" style="font-size: 14px;" data-change-symbol="MRDN"></div>
+        <div style="display:flex; gap: 8px; margin-top: 8px;">
+          <button class="btn primary" data-trade-action="BUY" data-symbol="MRDN" style="padding: 8px 18px;">Buy Shares</button>
+          <button class="btn" data-trade-action="SELL" data-symbol="MRDN" style="padding: 8px 18px;">Sell Shares</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHART & TIMEFRAMES -->
+    <div class="box" style="margin-top: 24px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1.5px solid var(--ink); padding-bottom: 12px; margin-bottom: 16px;">
+        <div style="font-weight:700; font-size:15px; text-transform:uppercase; letter-spacing:0.05em;">Interactive Price Chart</div>
+        <div class="btn-group" id="chart-timeframes">
+          <button class="active" data-tf="1D">1D</button>
+          <button data-tf="1W">1W</button>
+          <button data-tf="1M">1M</button>
+          <button data-tf="1Y">1Y</button>
+          <button data-tf="ALL">ALL</button>
+        </div>
+      </div>
+      <div style="position:relative; width:100%; height: 380px;">
+        <canvas id="main-stock-chart" width="1340" height="380" style="width:100%; height:100%; display:block;"></canvas>
+      </div>
+    </div>
+
+    <!-- FUNDAMENTALS & ORDER BOOK GRID -->
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 24px;">
+      
+      <!-- Key Statistics -->
+      <div class="box">
+        <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; border-bottom:1.5px solid var(--ink); padding-bottom:8px; margin-bottom:16px;">
+          Key Financial Fundamentals
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 16px; font-size: 13.5px;">
+          <div style="display:flex; justify-content:space-between; border-bottom:1px dotted var(--line-color); padding-bottom:8px;">
+            <span style="color:var(--mute);">Market Capitalization</span>
+            <strong id="stat-mcap" class="mono">₹ 48,230 Cr</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px dotted var(--line-color); padding-bottom:8px;">
+            <span style="color:var(--mute);">Price-to-Earnings (P/E)</span>
+            <strong id="stat-pe" class="mono">24.5</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px dotted var(--line-color); padding-bottom:8px;">
+            <span style="color:var(--mute);">52-Week High</span>
+            <strong id="stat-high" class="mono">₹ 1,402.80</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px dotted var(--line-color); padding-bottom:8px;">
+            <span style="color:var(--mute);">52-Week Low</span>
+            <strong id="stat-low" class="mono">₹ 842.10</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px dotted var(--line-color); padding-bottom:8px;">
+            <span style="color:var(--mute);">Volume Traded</span>
+            <strong id="stat-vol" class="mono">2,45,120</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px dotted var(--line-color); padding-bottom:8px;">
+            <span style="color:var(--mute);">Total Turnover</span>
+            <strong id="stat-turnover" class="mono">₹ 45 Cr</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level 2 Depth / Order Book -->
+      <div class="box">
+        <div style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; border-bottom:1.5px solid var(--ink); padding-bottom:8px; margin-bottom:16px;">
+          Market Depth (Bid / Ask)
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:600; margin-bottom:8px; color:var(--mute);">
+          <span>BID PRICE</span>
+          <span>ASK PRICE</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:15px; margin-bottom: 16px;">
+          <strong id="depth-bid" class="mono up" style="font-weight:700;">₹ 1,244.50</strong>
+          <strong id="depth-ask" class="mono dn" style="font-weight:700;">₹ 1,246.20</strong>
+        </div>
+        <p style="font-size:11.5px; color:var(--mute); line-height: 1.4;">
+          Order book depth displays institutional matching rates across primary liquidity exchanges.
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="serif" style="font-size: 24px; font-weight: 700;">BOURSE<i>·</i>DAILY</div>
+      <p class="legal">Sample data and fictional companies, for demonstration only.</p>
+      <div style="font-size: 11px; color: #9B9886; margin-top: 8px;">© 2026 Bourse Daily Media Inc. All rights reserved. Data delayed by 15 minutes.</div>
+    </div>
+  </footer>
+
+  <!-- BUY / SELL MODAL -->
+  <div id="trade-modal" class="modal-backdrop">
+    <div class="modal">
+      <button id="modal-close" class="modal-close">×</button>
+      <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--mute); margin-bottom: 4px;">Order Execution Desk</div>
+      <h3 id="modal-title" class="serif" style="font-size: 22px; margin-bottom: 16px;">BUY — MRDN</h3>
+      
+      <div class="btn-group" style="width: 100%; margin-bottom: 16px;">
+        <button id="tab-buy" class="active" style="flex:1;">BUY</button>
+        <button id="tab-sell" style="flex:1;">SELL</button>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px; padding: 12px; background: rgba(0,0,0,0.03); border: 1px solid var(--ink);">
+        <span>Current Market Price:</span>
+        <strong id="modal-price" class="mono" style="font-size: 16px;">₹ 1,245.50</strong>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <label style="display:block; font-size: 12px; font-weight: 600; margin-bottom: 6px;">QUANTITY OF SHARES</label>
+        <input type="number" id="trade-qty" value="10" min="1" class="search-input" style="width: 100%; padding: 10px; font-family:var(--font-mono); font-size:16px;">
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px; padding-top: 12px; border-top: 1px dotted var(--line-color);">
+        <span style="font-weight: 600;">Estimated Total:</span>
+        <strong id="trade-total" class="mono" style="font-size: 18px; color: var(--ink);">₹ 12,455.00</strong>
+      </div>
+
+      <button id="submit-trade-btn" class="btn primary" style="width: 100%; padding: 12px; font-size: 14px;">Confirm Buy Order</button>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/data.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="code/animations.js"></script>
+  <script>
+    // Populate Ticker
+    const tickerTrack = document.getElementById('ticker-track');
+    if (tickerTrack && window.BourseData) {
+      const items = BourseData.companies.map(c => `
+        <div class="ticker-item">
+          <span class="symbol">${c.symbol}</span>
+          <span class="price mono" data-price-symbol="${c.symbol}">₹ ${BourseData.formatINR(c.price)}</span>
+          <span class="chg ${c.change >= 0 ? 'up' : 'dn'}" data-change-symbol="${c.symbol}">${c.change >= 0 ? '▲' : '▼'} ${c.change >= 0 ? '+' : ''}${BourseData.formatINR(c.change)}</span>
+        </div>
+      `).join('');
+      tickerTrack.innerHTML = items + items;
+    }
+
+    // Parse symbol from URL params
+    const params = new URLSearchParams(window.location.search);
+    const symbolParam = params.get('symbol') || 'MRDN';
+    const comp = BourseData.companies.find(c => c.symbol === symbolParam) || BourseData.companies[0];
+
+    // Update stock details page
+    document.getElementById('page-title').textContent = `BOURSE·DAILY — ${comp.symbol}: ${comp.name}`;
+    document.getElementById('stock-symbol-badge').textContent = comp.symbol;
+    document.getElementById('stock-symbol-badge').setAttribute('data-price-symbol', comp.symbol);
+    document.getElementById('stock-sector-badge').textContent = comp.sector;
+    document.getElementById('stock-name').textContent = comp.name;
+    document.getElementById('stock-desc').textContent = comp.desc;
+    
+    const priceEl = document.getElementById('stock-price');
+    priceEl.textContent = BourseData.formatINR(comp.price);
+    priceEl.setAttribute('data-price-symbol', comp.symbol);
+
+    const changeEl = document.getElementById('stock-change');
+    changeEl.innerHTML = BourseData.formatChange(comp.change, comp.changePct);
+    changeEl.setAttribute('data-change-symbol', comp.symbol);
+
+    // Update trade buttons data attributes
+    document.querySelectorAll('[data-trade-action]').forEach(btn => {
+      btn.setAttribute('data-symbol', comp.symbol);
+    });
+
+    const starBtn = document.getElementById('stock-star-btn');
+    starBtn.setAttribute('data-symbol', comp.symbol);
+    const watchlist = BourseData.Store.getWatchlist();
+    if (watchlist.includes(comp.symbol)) {
+      starBtn.classList.add('starred');
+      starBtn.textContent = '★';
+    } else {
+      starBtn.classList.remove('starred');
+      starBtn.textContent = '☆';
+    }
+
+    // Stats
+    document.getElementById('stat-mcap').textContent = '₹ ' + comp.mCap;
+    document.getElementById('stat-pe').textContent = comp.pe;
+    document.getElementById('stat-high').textContent = '₹ ' + BourseData.formatINR(comp.high52);
+    document.getElementById('stat-low').textContent = '₹ ' + BourseData.formatINR(comp.low52);
+    document.getElementById('stat-vol').textContent = BourseData.formatINR(comp.volume, 0);
+    document.getElementById('stat-turnover').textContent = comp.turnover;
+    document.getElementById('depth-bid').textContent = '₹ ' + BourseData.formatINR(comp.bid);
+    document.getElementById('depth-ask').textContent = '₹ ' + BourseData.formatINR(comp.ask);
+
+    // Draw Main Chart
+    const canvas = document.getElementById('main-stock-chart');
+    if (canvas && window.BourseCharts) {
+      BourseCharts.drawMainChart(canvas, comp.history, comp.change >= 0, '1M');
+    }
+
+    // Timeframe selector
+    document.querySelectorAll('#chart-timeframes button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#chart-timeframes button').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const tf = this.dataset.tf;
+        let chartData = comp.history;
+        if (tf === '1D') chartData = comp.intraday;
+        else if (tf === '1W') chartData = comp.history.slice(-7);
+        else if (tf === '1M') chartData = comp.history;
+        else if (tf === '1Y' || tf === 'ALL') chartData = comp.history;
+        BourseCharts.drawMainChart(canvas, chartData, comp.change >= 0, tf);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -33,7 +33,20 @@ document.addEventListener('DOMContentLoaded', () => {
     tickerTrack.addEventListener('mouseleave', () => tickerTrack.style.animationPlayState = 'running');
   }
 
-  // 3. LIVE PRICE SIMULATION ENGINE (A5, B9)
+  // DARK MODE TOGGLE CONTROLLER
+  const darkModeBtn = document.getElementById('dark-mode-toggle');
+  if (darkModeBtn) {
+    if (localStorage.getItem('bourse_dark_mode') === 'true') {
+      document.body.classList.add('dark-mode');
+      darkModeBtn.textContent = 'Light Mode';
+    }
+    darkModeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('bourse_dark_mode', isDark);
+      darkModeBtn.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    });
+  }
   let simulationPaused = false;
   const pauseBtn = document.getElementById('sim-pause-btn');
   if (pauseBtn) {

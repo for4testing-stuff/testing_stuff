@@ -1,25 +1,50 @@
-/* ==========================================================================
-   BOURSE·DAILY — css/styles.css (Upgraded Master Stylesheet)
-   ========================================================================== */
+/* Dark Mode Theme Variables & Toggle styles */
+body.dark-mode {
+  --paper: #121212;
+  --ink: #f8fafc;
+  --surface: #1e1b18;
+  --line-color: #332922;
+  --orange: #f97316;
+  --orange-dark: #ea580c;
+  --mute: #94a3b8;
+  --shadow: 3px 3px 0 var(--orange);
+}
+body.dark-mode .box {
+  background: #18181b;
+  border-color: #3f3f46;
+  color: #f8fafc;
+}
+body.dark-mode tr:nth-child(even), body.dark-mode .table-row:nth-child(even) {
+  background-color: #1e1b18;
+}
+body.dark-mode tr:nth-child(odd), body.dark-mode .table-row:nth-child(odd) {
+  background-color: #18181b;
+}
+body.dark-mode tr:hover, body.dark-mode .table-row:hover {
+  background-color: #27272a !important;
+}
 
 /* Design tokens / Variables */
 :root {
-  --paper: #F2EFE6;
-  --paper-rgb: 242, 239, 230;
-  --ink: #14181A;
-  --ink-rgb: 20, 24, 26;
-  --yellow: #F5D547;
-  --yellow-rgb: 245, 213, 71;
-  --gain: #0F7B4F;
-  --gain-rgb: 15, 123, 79;
-  --loss: #C8372D;
-  --loss-rgb: 200, 55, 45;
-  --mute: #6B6A60;
-  --mute-rgb: 107, 106, 96;
-  --line-color: #9B9886;
-  --shadow: 3px 3px 0 var(--ink);
-  --shadow-lg: 5px 5px 0 var(--ink);
-  --shadow-sm: 2px 2px 0 var(--ink);
+  --paper: #ffffff;
+  --paper-rgb: 255, 255, 255;
+  --ink: #0f172a;
+  --ink-rgb: 15, 23, 42;
+  --yellow: #f97316;
+  --yellow-rgb: 249, 115, 22;
+  --orange: #f97316;
+  --orange-dark: #ea580c;
+  --surface: #fff7ed;
+  --gain: #16a34a;
+  --gain-rgb: 22, 163, 74;
+  --loss: #dc2626;
+  --loss-rgb: 220, 38, 38;
+  --mute: #64748b;
+  --mute-rgb: 100, 116, 139;
+  --line-color: #fed7aa;
+  --shadow: 3px 3px 0 var(--orange);
+  --shadow-lg: 5px 5px 0 var(--orange);
+  --shadow-sm: 2px 2px 0 var(--orange);
   --font-serif: Lora, serif;
   --font-display: 'Playfair Display', Lora, serif;
   --font-sans: Inter, sans-serif;
@@ -86,7 +111,11 @@ body {
 /* Typography helpers */
 .serif { font-family: var(--font-serif); }
 .display { font-family: var(--font-display); }
-.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
 .up { color: var(--gain); }
 .dn { color: var(--loss); }
 
@@ -402,9 +431,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .box {
   background: var(--paper);
   border: 2px solid var(--ink);
-  padding: 20px;
-  box-shadow: var(--shadow);
+  padding: 24px;
+  box-shadow: 3px 3px 0 var(--orange);
   position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.box:hover {
+  transform: translateY(-2px);
+  box-shadow: 5px 5px 0 var(--orange);
 }
 
 .sec-head {
@@ -600,9 +635,26 @@ tbody tr:hover {
   to { transform: translateY(12px); opacity: 0; }
 }
 
-/* ==========================================================================
-   FOOTER
-   ========================================================================== */
+/* Orange & White Focus & Hover Micro-Interactions */
+input:focus, select:focus, button:focus {
+  outline: 2px solid var(--orange) !important;
+  outline-offset: 2px;
+}
+.btn:hover {
+  background-color: var(--orange-dark) !important;
+  transform: translateY(-1px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+tr:nth-child(even), .table-row:nth-child(even) {
+  background-color: var(--surface);
+}
+tr:nth-child(odd), .table-row:nth-child(odd) {
+  background-color: var(--paper);
+}
+tr:hover, .table-row:hover {
+  background-color: #fed7aa !important;
+  transition: background-color 0.15s ease;
+}
 footer {
   margin-top: auto;
   border-top: 2px solid var(--ink);

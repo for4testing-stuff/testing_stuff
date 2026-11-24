@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOURSE·DAILY — Presentation Deck Template</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       BOURSE·DAILY — Presentation Deck Theme & Template Styles
+       ========================================================================== */
+    :root {
+      --paper: #ffffff;
+      --paper-rgb: 255, 255, 255;
+      --ink: #0f172a;
+      --ink-rgb: 15, 23, 42;
+      --yellow: #f97316;
+      --yellow-rgb: 249, 115, 22;
+      --orange: #f97316;
+      --orange-dark: #ea580c;
+      --surface: #fff7ed;
+      --gain: #16a34a;
+      --loss: #dc2626;
+      --mute: #64748b;
+      --line-color: #fed7aa;
+      --shadow: 4px 4px 0 var(--orange);
+      --shadow-sm: 2px 2px 0 var(--orange);
+      --font-serif: Lora, serif;
+      --font-display: 'Playfair Display', Lora, serif;
+      --font-sans: Inter, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: #1e293b;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .deck-controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--paper);
+      padding: 12px 20px;
+      border: 3px solid var(--ink);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      z-index: 1000;
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    .deck-controls button {
+      background: var(--orange);
+      color: var(--paper);
+      border: 2px solid var(--ink);
+      padding: 6px 12px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-weight: bold;
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+    .deck-controls button:hover {
+      background: var(--orange-dark);
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    /* SLIDE CONTAINER (16:9 Aspect Ratio) */
+    .slide {
+      width: 1280px;
+      height: 720px;
+      background-color: var(--paper);
+      border: 4px solid var(--ink);
+      box-shadow: 12px 12px 0 #000000;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 50px 60px;
+      page-break-after: always;
+      overflow: hidden;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 3px solid var(--ink);
+      padding-bottom: 15px;
+    }
+    .slide-tag {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--surface);
+      border: 2px solid var(--ink);
+      padding: 4px 10px;
+      color: var(--orange-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .slide-logo {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+    .slide-logo i { color: var(--orange); font-style: normal; }
+
+    /* Slide Footer */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 2px solid var(--line-color);
+      padding-top: 15px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--mute);
+    }
+
+    /* Slide Body Content */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px 0;
+    }
+
+    /* Typography */
+    h1.slide-title {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+    h2.slide-subtitle {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: var(--mute);
+      line-height: 1.4;
+    }
+    p.slide-text {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+
+    /* Components & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 25px;
+    }
+    .card {
+      background: var(--surface);
+      border: 3px solid var(--ink);
+      padding: 25px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .card h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--ink);
+    }
+    .card .metric {
+      font-family: var(--font-mono);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--orange-dark);
+    }
+    .mono { font-family: var(--font-mono); }
+    .up { color: var(--gain); }
+    .down { color: var(--loss); }
+
+    /* Tables for Financial Data */
+    table.deck-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 3px solid var(--ink);
+      font-size: 16px;
+    }
+    table.deck-table th {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--font-mono);
+      text-align: left;
+      padding: 12px 16px;
+      font-weight: 600;
+    }
+    table.deck-table td {
+      padding: 14px 16px;
+      border-bottom: 2px solid var(--line-color);
+      font-family: var(--font-mono);
+    }
+    table.deck-table tr:last-child td { border-bottom: none; }
+    table.deck-table tr:nth-child(even) { background: var(--surface); }
+
+    /* Print styling */
+    @media print {
+      body { background: none; padding: 0; }
+      .deck-controls { display: none; }
+      .slide { box-shadow: none; border: 2px solid #000; margin: 0; page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-controls">
+    <span>BOURSE·DAILY PPT DECK</span>
+    <button onclick="window.print()">Print / Save PDF</button>
+  </div>
+
+  <!-- SLIDE 1: Title Slide -->
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-tag">Executive Presentation • Q1 2026</span>
+      <span class="slide-logo">BOURSE<i>·</i>DAILY</span>
+    </div>
+    <div class="slide-body" style="justify-content: center;">
+      <span class="slide-tag" style="align-self: flex-start; background: var(--orange); color: var(--paper);">INVESTOR BRIEFING</span>
+      <h1 class="slide-title">Indian Share Market & Financial Intelligence Platform</h1>
+      <h2 class="slide-subtitle">Comprehensive Market Analysis, Benchmark Indices, Portfolio Tracking & Economic Outlook</h2>
+    </div>
+    <div class="slide-footer">
+      <span>VOL. XXIV NO. 82</span>
+      <span>WEDNESDAY, MARCH 25, 2026</span>
+      <span>SLIDE 01 / 06</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: Executive Summary / Indices -->
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-tag">Market Overview</span>
+      <span class="slide-logo">BOURSE<i>·</i>DAILY</span>
+    </div>
+    <div class="slide-body">
+      <h1 class="slide-title" style="font-size: 36px;">Benchmark Indices Performance</h1>
+      <div class="grid-3">
+        <div class="card">
+          <h3>SENSEX 30</h3>
+          <p class="slide-text" style="font-size: 14px; color: var(--mute);">BSE Bombay Stock Exchange</p>
+          <div class="metric">74,215.80</div>
+          <div class="mono up" style="font-weight: 600;">▲ +412.50 (+0.56%)</div>
+        </div>
+        <div class="card">
+          <h3>NIFTY 50</h3>
+          <p class="slide-text" style="font-size: 14px; color: var(--mute);">NSE National Stock Exchange</p>
+          <div class="metric">22,504.30</div>
+          <div class="mono up" style="font-weight: 600;">▲ +128.10 (+0.57%)</div>
+        </div>
+        <div class="card">
+          <h3>BANK NIFTY</h3>
+          <p class="slide-text" style="font-size: 14px; color: var(--mute);">Banking Sector Benchmark</p>
+          <div class="metric">48,120.40</div>
+          <div class="mono down" style="font-weight: 600;">▼ -64.20 (-0.13%)</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>BOURSE RESEARCH BUREAU</span>
+      <span>LIVE MARKET DATA</span>
+      <span>SLIDE 02 / 06</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: Key Economic Driver -->
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-tag">RBI Monetary Policy</span>
+      <span class="slide-logo">BOURSE<i>·</i>DAILY</span>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2" style="align-items: center;">
+        <div>
+          <span class="slide-tag" style="background: var(--orange); color: var(--paper); margin-bottom: 15px; display: inline-block;">SPECIAL ECONOMIC REPORT</span>
+          <h1 class="slide-title" style="font-size: 38px;">Reserve Bank Holds Benchmark Repo Rate at 6.50%</h1>
+          <p class="slide-text" style="margin-top: 15px;">
+            The Monetary Policy Committee unanimously voted to maintain status quo on interest rates, citing sustained domestic demand, moderated core inflation prints at 3.8%, and strong capital expenditure outlays across manufacturing and clean energy corridors.
+          </p>
+        </div>
+        <div class="card" style="background: var(--paper); border: 4px solid var(--orange);">
+          <h3>Key Takeaways</h3>
+          <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 16px;">
+            <li>Repo rate maintained at 6.50% for consecutive quarters.</li>
+            <li>Core inflation moderated comfortably to 3.8%.</li>
+            <li>Robust credit expansion noted in corporate manufacturing.</li>
+            <li>Strong capital expenditure outlays in clean energy sectors.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>MONETARY POLICY REVIEW</span>
+      <span>MACROECONOMIC OUTLOOK</span>
+      <span>SLIDE 03 / 06</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: Top Movers Table -->
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-tag">Stock Market Movers</span>
+      <span class="slide-logo">BOURSE<i>·</i>DAILY</span>
+    </div>
+    <div class="slide-body">
+      <h1 class="slide-title" style="font-size: 32px;">Active Equities & Sector Movers</h1>
+      <table class="deck-table">
+        <thead>
+          <tr>
+            <th>Company / Symbol</th>
+            <th>Sector</th>
+            <th>Market Price (₹)</th>
+            <th>Change (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>RELIANCE</strong> (Reliance Industries)</td>
+            <td>Energy / Conglomerate</td>
+            <td>2,940.50</td>
+            <td class="up">▲ +45.20 (+1.56%)</td>
+          </tr>
+          <tr>
+            <td><strong>TCS</strong> (Tata Consultancy Services)</td>
+            <td>Information Technology</td>
+            <td>3,980.10</td>
+            <td class="up">▲ +62.40 (+1.59%)</td>
+          </tr>
+          <tr>
+            <td><strong>HDFC BANK</strong> (HDFC Bank Ltd)</td>
+            <td>Banking & Financials</td>
+            <td>1,485.00</td>
+            <td class="down">▼ -12.30 (-0.82%)</td>
+          </tr>
+          <tr>
+            <td><strong>INFY</strong> (Infosys Limited)</td>
+            <td>Information Technology</td>
+            <td>1,650.25</td>
+            <td class="up">▲ +18.75 (+1.15%)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-footer">
+      <span>NSE / BSE TRADING DESK</span>
+      <span>REAL-TIME QUOTES</span>
+      <span>SLIDE 04 / 06</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: Portfolio & Watchlist Intelligence -->
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-tag">Portfolio Intelligence</span>
+      <span class="slide-logo">BOURSE<i>·</i>DAILY</span>
+    </div>
+    <div class="slide-body">
+      <h1 class="slide-title" style="font-size: 36px;">Investor Portfolios & Watchlist Analytics</h1>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Active Watchlist Tracking</h3>
+          <p class="slide-text" style="font-size: 15px;">
+            Monitor custom watchlists with instant tick-by-tick price updates, volatility metrics, and technical indicators across NSE and BSE securities.
+          </p>
+          <div class="metric" style="font-size: 24px; color: var(--ink);">12 Symbols Tracked</div>
+        </div>
+        <div class="card">
+          <h3>Portfolio Performance</h3>
+          <p class="slide-text" style="font-size: 15px;">
+            Real-time valuation of holdings, profit/loss calculations, allocation breakdown by sector, and dividend yield analysis.
+          </p>
+          <div class="metric up" style="font-size: 28px;">₹14,82,500.00 (+12.4%)</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>PORTFOLIO MANAGER</span>
+      <span>RISK & RETURN METRICS</span>
+      <span>SLIDE 05 / 06</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: Conclusion / Q&A -->
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-tag">Conclusion & Q&A</span>
+      <span class="slide-logo">BOURSE<i>·</i>DAILY</span>
+    </div>
+    <div class="slide-body" style="text-align: center; align-items: center;">
+      <span class="slide-tag" style="background: var(--orange); color: var(--paper);">THANK YOU</span>
+      <h1 class="slide-title">Empowering Financial Intelligence</h1>
+      <h2 class="slide-subtitle" style="max-width: 800px; margin: 0 auto;">
+        Explore the live web platform for interactive stock comparison, real-time ticker simulations, and advanced market analytics.
+      </h2>
+      <div style="margin-top: 20px; font-family: var(--font-mono); font-size: 20px; font-weight: bold; background: var(--surface); padding: 15px 30px; border: 3px solid var(--ink); box-shadow: var(--shadow);">
+        http://localhost:8080/index.html
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>BOURSE·DAILY RESEARCH</span>
+      <span>ALL RIGHTS RESERVED</span>
+      <span>SLIDE 06 / 06</span>
+    </div>
+  </div>
+
+</body>
+</html>

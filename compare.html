@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BOURSE·DAILY — Compare Stocks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="code/animations.css">
+  <script src="js/data.js" defer></script>
+  <script src="js/charts.js" defer></script>
+</head>
+<body>
+
+  <!-- TICKER BAR -->
+  <div class="ticker-bar" aria-label="Market Ticker">
+    <div class="ticker-track" id="ticker-track"></div>
+  </div>
+
+  <!-- MASTHEAD -->
+  <header class="mast" role="banner">
+    <div class="wrap">
+      <div class="mast-top">
+        <div class="mast-date" id="current-date">WEDNESDAY, MARCH 25, 2026 — VOL. XXIV NO. 82</div>
+        <a href="index.html" class="logo-link" aria-label="Bourse Daily Home">
+          <span class="logo font-display">BOURSE<i>·</i>DAILY</span>
+        </a>
+        <div class="mast-actions">
+          <div class="search-box">
+            <label for="search-input" class="visually-hidden">Search companies and symbols</label>
+            <svg class="search-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" class="search-input" placeholder="Search companies, symbols..." autocomplete="off">
+            <div id="search-dropdown" class="search-dropdown" role="listbox"></div>
+          </div>
+          <button id="dark-mode-toggle" class="btn" style="background: var(--ink); color: var(--paper);" aria-label="Toggle Dark Mode">Dark Mode</button>
+        </div>
+      </div>
+      <nav class="nav-bar" aria-label="Primary">
+        <a href="index.html" class="nav-link">Markets</a>
+        <a href="watchlist.html" class="nav-link">Watchlist</a>
+        <a href="watchlist.html#portfolio" class="nav-link">Portfolio</a>
+        <a href="compare.html" class="nav-link active" aria-current="page">Compare Stocks</a>
+        <a href="learn.html" class="nav-link">Learn & Analysis</a>
+        <a href="qa.html" class="nav-link">QA Report</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" id="main-content" style="padding-top: 24px; padding-bottom: 40px;">
+    
+    <div class="box" style="margin-bottom: 24px;">
+      <div class="sec-head" style="margin-bottom: 16px;">
+        <h2 class="sec-title">Side-by-Side Fundamental Comparison</h2>
+        <span class="sec-meta">Select up to 3 stocks to compare valuations, metrics & performance</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+        <div class="box" style="padding: 12px; background: var(--surface2);">
+          <label style="font-size: 11px; color: var(--mute); display: block; margin-bottom: 6px; font-weight: 600; text-transform: uppercase;">Company 1</label>
+          <select id="comp-1" class="search-input" style="width: 100%; border: 1px solid var(--line-color); padding: 8px; background: var(--paper); font-family: var(--font-sans);"></select>
+        </div>
+        <div class="box" style="padding: 12px; background: var(--surface2);">
+          <label style="font-size: 11px; color: var(--mute); display: block; margin-bottom: 6px; font-weight: 600; text-transform: uppercase;">Company 2</label>
+          <select id="comp-2" class="search-input" style="width: 100%; border: 1px solid var(--line-color); padding: 8px; background: var(--paper); font-family: var(--font-sans);"></select>
+        </div>
+        <div class="box" style="padding: 12px; background: var(--surface2);">
+          <label style="font-size: 11px; color: var(--mute); display: block; margin-bottom: 6px; font-weight: 600; text-transform: uppercase;">Company 3</label>
+          <select id="comp-3" class="search-input" style="width: 100%; border: 1px solid var(--line-color); padding: 8px; background: var(--paper); font-family: var(--font-sans);"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="box" style="padding: 20px; margin-bottom: 24px;">
+      <div class="sec-head" style="margin-bottom: 12px;">
+        <h3 class="sec-title">Normalized Price Performance Chart (30-Day)</h3>
+        <span class="sec-meta">Base = 100</span>
+      </div>
+      <div style="position: relative; height: 220px; width: 100%;">
+        <canvas id="compare-chart"></canvas>
+      </div>
+    </div>
+
+    <div class="box" style="padding: 0; overflow-x: auto;">
+      <div style="display: grid; grid-template-columns: 200px 1fr 1fr 1fr; background: var(--ink); color: var(--paper); padding: 12px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">
+        <div>Metric</div>
+        <div id="header-col-1">Company 1</div>
+        <div id="header-col-2">Company 2</div>
+        <div id="header-col-3">Company 3</div>
+      </div>
+      <div id="comparison-table-body">
+        <!-- Populated via JS -->
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="wrap footer-grid">
+      <div>BOURSE·DAILY Professional Financial Terminal &copy; 2025</div>
+      <div style="text-align: right;">Real-time Simulated Feed</div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Date ticker
+      const now = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateEl = document.getElementById('current-date');
+      if (dateEl) dateEl.textContent = now.toLocaleDateString('en-US', options).toUpperCase() + ' — VOL. XXIV NO. 82';
+
+      const companies = BourseData.companies || [];
+      const sel1 = document.getElementById('comp-1');
+      const sel2 = document.getElementById('comp-2');
+      const sel3 = document.getElementById('comp-3');
+
+      companies.forEach((c) => {
+        sel1.add(new Option(`${c.name} (${c.symbol})`, c.symbol));
+        sel2.add(new Option(`${c.name} (${c.symbol})`, c.symbol));
+        sel3.add(new Option(`${c.name} (${c.symbol})`, c.symbol));
+      });
+
+      if (companies.length > 1) sel2.selectedIndex = 1;
+      if (companies.length > 2) sel3.selectedIndex = 2;
+
+      // Render Chart
+      let compareChart = null;
+      function renderCompareChart(c1, c2, c3) {
+        const canvas = document.getElementById('compare-chart');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (compareChart) compareChart.destroy();
+
+        // Generate 30 days of simulated normalized price data (base 100)
+        const labels = Array.from({length: 30}, (_, i) => `Day ${i+1}`);
+        const genSeries = (seed) => {
+          let val = 100;
+          return labels.map((_, i) => {
+            if (i === 0) return 100;
+            const rand = Math.sin(i * seed) * 2.5 + (seed % 1.5 - 0.7);
+            val = Math.max(70, val + rand);
+            return Number(val.toFixed(2));
+          });
+        };
+
+        compareChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              { label: c1.symbol, data: genSeries(c1.price % 7), borderColor: '#111111', backgroundColor: 'transparent', borderWidth: 2, tension: 0.2 },
+              { label: c2.symbol, data: genSeries(c2.price % 9), borderColor: '#2563eb', backgroundColor: 'transparent', borderWidth: 2, tension: 0.2 },
+              { label: c3.symbol, data: genSeries(c3.price % 11), borderColor: '#16a34a', backgroundColor: 'transparent', borderWidth: 2, tension: 0.2 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'top', labels: { font: { family: 'Inter', size: 12 } } } },
+            scales: {
+              x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+              y: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { size: 10 } } }
+            }
+          }
+        });
+      }
+
+      function updateComparison() {
+        const s1 = sel1.value;
+        const s2 = sel2.value;
+        const s3 = sel3.value;
+
+        const c1 = companies.find(c => c.symbol === s1) || companies[0];
+        const c2 = companies.find(c => c.symbol === s2) || companies[1] || companies[0];
+        const c3 = companies.find(c => c.symbol === s3) || companies[2] || companies[0];
+
+        document.getElementById('header-col-1').textContent = `${c1.name} (${c1.symbol})`;
+        document.getElementById('header-col-2').textContent = `${c2.name} (${c2.symbol})`;
+        document.getElementById('header-col-3').textContent = `${c3.name} (${c3.symbol})`;
+
+        const metrics = [
+          { label: 'Current Price', fn: c => '₹ ' + BourseData.formatINR(c.price) },
+          { label: 'Daily Change', fn: c => `<span style="color: ${c.change >= 0 ? 'var(--gain)' : 'var(--loss)'}; font-weight: 600;">${BourseData.formatChange(c.change, c.changePct)}</span>` },
+          { label: 'Market Cap', fn: c => '₹ ' + (c.mcap || '1.2L Cr') },
+          { label: 'P/E Ratio', fn: c => c.pe || '24.5' },
+          { label: 'P/B Ratio', fn: c => c.pb || '3.2' },
+          { label: 'Dividend Yield', fn: c => (c.divYield || '1.5') + '%' },
+          { label: 'Beta', fn: c => c.beta || '1.02' },
+          { label: '52W High', fn: c => '₹ ' + BourseData.formatINR(c.high52 || (c.price * 1.2)) },
+          { label: '52W Low', fn: c => '₹ ' + BourseData.formatINR(c.low52 || (c.price * 0.8)) },
+          { label: 'Sector', fn: c => c.sector || 'Technology' },
+          { label: 'Analyst Rating', fn: c => c.rating || 'STRONG BUY (82%)' }
+        ];
+
+        let html = '';
+        metrics.forEach((m, idx) => {
+          const bg = idx % 2 === 0 ? 'var(--surface)' : 'var(--paper)';
+          html += `
+            <div style="display: grid; grid-template-columns: 200px 1fr 1fr 1fr; padding: 12px 16px; border-bottom: 1px solid var(--line-color); background: ${bg}; font-size: 13px; align-items: center;">
+              <div style="font-weight: 700; color: var(--ink);">${m.label}</div>
+              <div class="mono">${m.fn(c1)}</div>
+              <div class="mono">${m.fn(c2)}</div>
+              <div class="mono">${m.fn(c3)}</div>
+            </div>
+          `;
+        });
+
+        document.getElementById('comparison-table-body').innerHTML = html;
+        renderCompareChart(c1, c2, c3);
+      }
+
+      sel1.addEventListener('change', updateComparison);
+      sel2.addEventListener('change', updateComparison);
+      sel3.addEventListener('change', updateComparison);
+
+      updateComparison();
+    });
+  </script>
+</body>
+</html>
